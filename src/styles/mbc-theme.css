@@ -1,0 +1,325 @@
+/* ==========================================================================
+   MicroBank Connect — design system global
+   ========================================================================== */
+
+:root {
+  --mbc-primary: #1d4ed8;
+  --mbc-primary-dark: #1e3a8a;
+  --mbc-primary-light: #eff4ff;
+  --mbc-accent: #0d9488;
+  --mbc-gold: #d97706;
+  --mbc-gold-light: #fef3e2;
+  --mbc-success: #059669;
+  --mbc-success-light: #ecfdf5;
+  --mbc-warning: #d97706;
+  --mbc-warning-light: #fffbeb;
+  --mbc-danger: #dc2626;
+  --mbc-danger-light: #fef2f2;
+  --mbc-info: #2563eb;
+
+  --mbc-bg: #f4f6fb;
+  --mbc-surface: #ffffff;
+  --mbc-border: #e6e9f2;
+  --mbc-text: #1a2233;
+  --mbc-text-muted: #6b7386;
+
+  --mbc-radius-sm: 8px;
+  --mbc-radius-md: 14px;
+  --mbc-radius-lg: 20px;
+
+  --mbc-shadow-sm: 0 1px 2px rgba(20, 30, 60, 0.06);
+  --mbc-shadow-md: 0 6px 20px rgba(20, 30, 60, 0.08);
+  --mbc-shadow-lg: 0 16px 40px rgba(20, 30, 60, 0.14);
+
+  --mbc-font-heading: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  --mbc-font-body: 'Manrope', 'Segoe UI', sans-serif;
+
+  --mbc-sidebar-width: 264px;
+  --mbc-topbar-height: 68px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--mbc-bg);
+  color: var(--mbc-text);
+  font-family: var(--mbc-font-body);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--mbc-font-heading);
+  color: var(--mbc-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd3e6;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Layout helpers ---------- */
+
+.mbc-page {
+  padding: 1.75rem clamp(1rem, 3vw, 2.25rem) 3rem;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.mbc-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mbc-page-header h1 {
+  font-size: 1.55rem;
+  margin: 0 0 0.2rem;
+}
+
+.mbc-page-header p {
+  color: var(--mbc-text-muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ---------- Cards & surfaces ---------- */
+
+.mbc-card {
+  background: var(--mbc-surface);
+  border: 1px solid var(--mbc-border);
+  border-radius: var(--mbc-radius-md);
+  box-shadow: var(--mbc-shadow-sm);
+}
+
+.mbc-card-body {
+  padding: 1.5rem;
+}
+
+.mbc-card-header {
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid var(--mbc-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.mbc-card-header h2, .mbc-card-header h3 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  font-family: var(--mbc-font-body);
+  font-weight: 600;
+  border-radius: var(--mbc-radius-sm);
+}
+
+.btn-primary {
+  background: var(--mbc-primary);
+  border-color: var(--mbc-primary);
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: var(--mbc-primary-dark);
+  border-color: var(--mbc-primary-dark);
+}
+
+.btn-accent {
+  background: var(--mbc-accent);
+  border-color: var(--mbc-accent);
+  color: #fff;
+}
+.btn-accent:hover { background: #0b7c72; color: #fff; }
+
+.btn-outline-primary {
+  color: var(--mbc-primary);
+  border-color: var(--mbc-primary);
+}
+.btn-outline-primary:hover {
+  background: var(--mbc-primary);
+  border-color: var(--mbc-primary);
+}
+
+/* ---------- Forms ---------- */
+
+.form-control, .form-select {
+  border-radius: var(--mbc-radius-sm);
+  border-color: var(--mbc-border);
+  padding: 0.55rem 0.85rem;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--mbc-primary);
+  box-shadow: 0 0 0 0.2rem rgba(29, 78, 216, 0.15);
+}
+.form-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--mbc-text);
+  margin-bottom: 0.35rem;
+}
+.form-text-error {
+  color: var(--mbc-danger);
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+.is-invalid-field {
+  border-color: var(--mbc-danger) !important;
+}
+
+/* ---------- Badges / statuts ---------- */
+
+.mbc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.mbc-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.mbc-badge-success { background: var(--mbc-success-light); color: var(--mbc-success); }
+.mbc-badge-warning { background: var(--mbc-warning-light); color: var(--mbc-warning); }
+.mbc-badge-danger { background: var(--mbc-danger-light); color: var(--mbc-danger); }
+.mbc-badge-info { background: var(--mbc-primary-light); color: var(--mbc-primary); }
+.mbc-badge-neutral { background: #eef0f6; color: var(--mbc-text-muted); }
+.mbc-badge-gold { background: var(--mbc-gold-light); color: var(--mbc-gold); }
+
+/* ---------- Tables ---------- */
+
+.mbc-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+}
+.mbc-table thead th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mbc-text-muted);
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--mbc-border);
+  white-space: nowrap;
+}
+.mbc-table tbody td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--mbc-border);
+  vertical-align: middle;
+}
+.mbc-table tbody tr:last-child td { border-bottom: none; }
+.mbc-table tbody tr:hover { background: #fafbff; }
+.mbc-table-responsive { overflow-x: auto; }
+
+/* ---------- Stat cards ---------- */
+
+.mbc-stat-card {
+  background: var(--mbc-surface);
+  border: 1px solid var(--mbc-border);
+  border-radius: var(--mbc-radius-md);
+  padding: 1.25rem 1.4rem;
+  box-shadow: var(--mbc-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+}
+.mbc-stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+.mbc-stat-value {
+  font-family: var(--mbc-font-heading);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--mbc-text);
+  line-height: 1.1;
+}
+.mbc-stat-label {
+  color: var(--mbc-text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.mbc-stat-trend {
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.mbc-stat-trend.up { color: var(--mbc-success); }
+.mbc-stat-trend.down { color: var(--mbc-danger); }
+
+/* ---------- Empty state ---------- */
+
+.mbc-empty {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--mbc-text-muted);
+}
+.mbc-empty i {
+  font-size: 2.25rem;
+  color: #c7cee3;
+  margin-bottom: 0.75rem;
+}
+
+/* ---------- Loading ---------- */
+
+.mbc-spinner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  color: var(--mbc-primary);
+}
+
+/* ---------- Utility ---------- */
+
+.text-muted-mbc { color: var(--mbc-text-muted); }
+.mbc-divider { border-top: 1px solid var(--mbc-border); margin: 1.25rem 0; }
+.mbc-scroll-x { overflow-x: auto; }
+
+@media (max-width: 768px) {
+  .mbc-page { padding: 1.25rem 1rem 4.5rem; }
+  .mbc-card-body { padding: 1.1rem; }
+}
