@@ -6,10 +6,108 @@
     </div>
   </div>
 
-  <div class="mbc-card">
-    <div class="mbc-empty">
-      <i class="fa-solid fa-chart-simple"></i>
-      <p>Les indicateurs clés (comptes, opérations, crédits) seront branchés à l'étape suivante.</p>
+  @if (isClient()) {
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-primary-light); color: var(--mbc-primary);"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div class="mbc-stat-value">{{ soldeTotal() | number: '1.0-0' }} FCFA</div>
+          <div class="mbc-stat-label">Solde total</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-accent); color: #fff;"><i class="fa-solid fa-wallet"></i></div>
+          <div class="mbc-stat-value">{{ nombreComptes() }}</div>
+          <div class="mbc-stat-label">Comptes actifs</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-gold-light); color: var(--mbc-gold);"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+          <div class="mbc-stat-value">{{ creditsEnCours().length }}</div>
+          <div class="mbc-stat-label">Crédits en cours</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-success-light); color: var(--mbc-success);"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="mbc-stat-value">{{ encoursCredits() | number: '1.0-0' }} FCFA</div>
+          <div class="mbc-stat-label">Restant à rembourser</div>
+        </div>
+      </div>
     </div>
+  } @else {
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-primary-light); color: var(--mbc-primary);"><i class="fa-solid fa-users"></i></div>
+          <div class="mbc-stat-value">{{ nombreClients() }}</div>
+          <div class="mbc-stat-label">Clients</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-accent); color: #fff;"><i class="fa-solid fa-wallet"></i></div>
+          <div class="mbc-stat-value">{{ nombreComptesTotal() }}</div>
+          <div class="mbc-stat-label">Comptes ouverts</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-warning-light); color: var(--mbc-warning);"><i class="fa-solid fa-hourglass-half"></i></div>
+          <div class="mbc-stat-value">{{ creditsEnAttente() }}</div>
+          <div class="mbc-stat-label">Crédits en attente</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-success-light); color: var(--mbc-success);"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div class="mbc-stat-value">{{ soldeGlobal() | number: '1.0-0' }} FCFA</div>
+          <div class="mbc-stat-label">Encours total des comptes</div>
+        </div>
+      </div>
+    </div>
+
+    @if (isGestionnaire()) {
+      <div class="row g-3 mt-1">
+        <div class="col-md-4">
+          <div class="mbc-stat-card">
+            <div class="mbc-stat-icon" style="background: var(--mbc-gold-light); color: var(--mbc-gold);"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+            <div class="mbc-stat-value">{{ encoursCreditsApprouves() | number: '1.0-0' }} FCFA</div>
+            <div class="mbc-stat-label">Encours de crédits approuvés</div>
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+  <div class="mbc-card mt-3">
+    <div class="mbc-card-header">
+      <h2>Dernières opérations</h2>
+      <a routerLink="/operations" class="btn btn-outline-primary btn-sm">Voir tout</a>
+    </div>
+    @if (dernieresOperations().length === 0) {
+      <div class="mbc-empty"><i class="fa-solid fa-right-left"></i><p>Aucune opération récente.</p></div>
+    } @else {
+      <div class="mbc-table-responsive">
+        <table class="mbc-table">
+          <thead><tr><th>Date</th><th>Type</th><th>Compte</th><th>Montant</th><th>Statut</th></tr></thead>
+          <tbody>
+            @for (t of dernieresOperations(); track t.id) {
+              <tr>
+                <td>{{ t.date | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>
+                  <span class="mbc-badge" [class.mbc-badge-success]="t.type === 'depot'" [class.mbc-badge-warning]="t.type === 'retrait'" [class.mbc-badge-info]="t.type === 'virement'">{{ t.type }}</span>
+                </td>
+                <td>{{ compteNumero(t.compteId) }}</td>
+                <td>{{ t.montant | number: '1.0-0' }} FCFA</td>
+                <td>{{ t.statut }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
   </div>
 </div>
