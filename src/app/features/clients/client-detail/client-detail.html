@@ -1,0 +1,69 @@
+<div class="mbc-page">
+  @if (loading()) {
+    <div class="mbc-spinner-wrap"><span class="spinner-border"></span></div>
+  } @else if (client(); as c) {
+    <div class="mbc-page-header">
+      <div>
+        <h1>{{ c.prenom }} {{ c.nom }}</h1>
+        <p>Client depuis le {{ c.dateCreation | date: 'dd/MM/yyyy' }}</p>
+      </div>
+      <a routerLink="/clients" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left"></i> Retour</a>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="mbc-card">
+          <div class="mbc-card-header"><h3>Informations</h3></div>
+          <div class="mbc-card-body">
+            <dl class="mbc-detail-list">
+              <dt>Email</dt><dd>{{ c.email }}</dd>
+              <dt>Téléphone</dt><dd>{{ c.telephone }}</dd>
+              <dt>Adresse</dt><dd>{{ c.adresse }}</dd>
+              <dt>Date de naissance</dt><dd>{{ c.dateNaissance | date: 'dd/MM/yyyy' }}</dd>
+              <dt>Pièce d'identité</dt><dd>{{ c.numeroPiece }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="mbc-card">
+          <div class="mbc-card-header">
+            <h3>Comptes</h3>
+            <a [routerLink]="['/comptes/nouveau']" [queryParams]="{ clientId: c.id }" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-plus"></i> Nouveau compte
+            </a>
+          </div>
+          @if (comptes().length === 0) {
+            <div class="mbc-empty"><i class="fa-solid fa-wallet"></i><p>Aucun compte ouvert pour ce client.</p></div>
+          } @else {
+            <div class="mbc-table-responsive">
+              <table class="mbc-table">
+                <thead><tr><th>N° compte</th><th>Type</th><th>Solde</th><th>Statut</th><th></th></tr></thead>
+                <tbody>
+                  @for (compte of comptes(); track compte.id) {
+                    <tr>
+                      <td>{{ compte.numero }}</td>
+                      <td>{{ compte.type === 'courant' ? 'Courant' : 'Épargne' }}</td>
+                      <td>{{ compte.solde | number: '1.0-0' }} FCFA</td>
+                      <td>
+                        <span class="mbc-badge" [class.mbc-badge-success]="compte.statut === 'actif'"
+                          [class.mbc-badge-warning]="compte.statut === 'suspendu'"
+                          [class.mbc-badge-danger]="compte.statut === 'ferme'">
+                          <span class="mbc-badge-dot"></span>{{ compte.statut }}
+                        </span>
+                      </td>
+                      <td class="text-end">
+                        <a [routerLink]="['/comptes', compte.id]" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

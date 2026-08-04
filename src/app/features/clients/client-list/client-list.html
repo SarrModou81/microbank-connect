@@ -1,0 +1,46 @@
+<div class="mbc-page">
+  <div class="mbc-page-header">
+    <div>
+      <h1>Clients</h1>
+      <p>Gérez votre portefeuille de clients : création, recherche, historique.</p>
+    </div>
+    <a routerLink="nouveau" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nouveau client</a>
+  </div>
+
+  <div class="mbc-card">
+    <div class="mbc-card-header">
+      <h2>Liste des clients</h2>
+      <input type="search" class="form-control" style="max-width: 280px;" placeholder="Rechercher un client..."
+        [value]="searchTerm()" (input)="onSearch($any($event.target).value)" />
+    </div>
+
+    @if (loading()) {
+      <div class="mbc-spinner-wrap"><span class="spinner-border"></span></div>
+    } @else if (loadError()) {
+      <div class="mbc-empty"><i class="fa-solid fa-triangle-exclamation"></i><p>{{ loadError() }}</p></div>
+    } @else if (filteredClients().length === 0) {
+      <div class="mbc-empty"><i class="fa-solid fa-users"></i><p>Aucun client trouvé.</p></div>
+    } @else {
+      <div class="mbc-table-responsive">
+        <table class="mbc-table">
+          <thead>
+            <tr><th>Nom</th><th>Email</th><th>Téléphone</th><th>Date de création</th><th></th></tr>
+          </thead>
+          <tbody>
+            @for (client of filteredClients(); track client.id) {
+              <tr>
+                <td>{{ client.prenom }} {{ client.nom }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.telephone }}</td>
+                <td>{{ client.dateCreation | date: 'dd/MM/yyyy' }}</td>
+                <td class="text-end">
+                  <a [routerLink]="[client.id]" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

@@ -1,22 +1,121 @@
 {
   "users": [
-    { "id": "u1", "nom": "Diop", "prenom": "Awa", "email": "awa.diop@microbank.sn", "role": "gestionnaire", "password": "demo123" },
-    { "id": "u2", "nom": "Ndiaye", "prenom": "Moussa", "email": "moussa.ndiaye@microbank.sn", "role": "agent", "password": "demo123" },
-    { "id": "u3", "nom": "Fall", "prenom": "Fatou", "email": "fatou.fall@client.sn", "role": "client", "clientId": "c1", "password": "demo123" }
+    {
+      "id": "u1",
+      "nom": "Diop",
+      "prenom": "Awa",
+      "email": "awa.diop@microbank.sn",
+      "role": "gestionnaire",
+      "password": "demo123"
+    },
+    {
+      "id": "u2",
+      "nom": "Ndiaye",
+      "prenom": "Moussa",
+      "email": "moussa.ndiaye@microbank.sn",
+      "role": "agent",
+      "password": "demo123"
+    },
+    {
+      "id": "u3",
+      "nom": "Fall",
+      "prenom": "Fatou",
+      "email": "fatou.fall@client.sn",
+      "role": "client",
+      "clientId": "c1",
+      "password": "demo123"
+    }
   ],
   "clients": [
-    { "id": "c1", "nom": "Fall", "prenom": "Fatou", "email": "fatou.fall@client.sn", "telephone": "77 123 45 67", "adresse": "Sacré-Cœur, Dakar", "dateNaissance": "1990-04-12", "numeroPiece": "1234567890123", "dateCreation": "2025-01-10", "agentId": "u2" }
+    {
+      "id": "c1",
+      "nom": "Fall",
+      "prenom": "Fatou",
+      "email": "fatou.fall@client.sn",
+      "telephone": "77 123 45 67",
+      "adresse": "Sacré-Cœur, Dakar",
+      "dateNaissance": "1990-04-12",
+      "numeroPiece": "1234567890123",
+      "dateCreation": "2025-01-10",
+      "agentId": "u2"
+    },
+    {
+      "nom": "sarr",
+      "prenom": "modou",
+      "email": "mdsa2r81@gmail.com",
+      "telephone": "782963790",
+      "adresse": "mboro",
+      "dateNaissance": "1999-02-03",
+      "numeroPiece": "12342526728826",
+      "agentId": "u2",
+      "dateCreation": "2026-08-04T12:54:12.498Z",
+      "id": "--LkheU4rNk"
+    }
   ],
   "comptes": [
-    { "id": "a1", "numero": "MBC-0001-CT", "clientId": "c1", "type": "courant", "solde": 125000, "plafondRetrait": 200000, "statut": "actif", "dateOuverture": "2025-01-10" },
-    { "id": "a2", "numero": "MBC-0001-EP", "clientId": "c1", "type": "epargne", "solde": 480000, "plafondRetrait": 100000, "statut": "actif", "dateOuverture": "2025-02-01" }
+    {
+      "id": "a1",
+      "numero": "MBC-0001-CT",
+      "clientId": "c1",
+      "type": "courant",
+      "solde": 125000,
+      "plafondRetrait": 200000,
+      "statut": "actif",
+      "dateOuverture": "2025-01-10"
+    },
+    {
+      "id": "a2",
+      "numero": "MBC-0001-EP",
+      "clientId": "c1",
+      "type": "epargne",
+      "solde": 480000,
+      "plafondRetrait": 100000,
+      "statut": "actif",
+      "dateOuverture": "2025-02-01"
+    },
+    {
+      "numero": "MBC-6748-CT",
+      "clientId": "--LkheU4rNk",
+      "type": "courant",
+      "solde": 0,
+      "plafondRetrait": 200000,
+      "statut": "actif",
+      "dateOuverture": "2026-08-04T12:54:45.831Z",
+      "id": "DnD8Zg5sxf8"
+    }
   ],
   "transactions": [
-    { "id": "t1", "compteId": "a1", "type": "depot", "montant": 50000, "date": "2026-07-01T09:00:00Z", "statut": "reussie", "description": "Dépôt agence" },
-    { "id": "t2", "compteId": "a1", "type": "retrait", "montant": 15000, "date": "2026-07-15T14:30:00Z", "statut": "reussie", "description": "Retrait guichet" }
+    {
+      "id": "t1",
+      "compteId": "a1",
+      "type": "depot",
+      "montant": 50000,
+      "date": "2026-07-01T09:00:00Z",
+      "statut": "reussie",
+      "description": "Dépôt agence"
+    },
+    {
+      "id": "t2",
+      "compteId": "a1",
+      "type": "retrait",
+      "montant": 15000,
+      "date": "2026-07-15T14:30:00Z",
+      "statut": "reussie",
+      "description": "Retrait guichet"
+    }
   ],
   "credits": [
-    { "id": "cr1", "clientId": "c1", "montant": 300000, "tauxAnnuel": 12, "dureeMois": 12, "statut": "approuve", "dateCreation": "2026-03-01", "mensualite": 26638 }
+    {
+      "id": "cr1",
+      "clientId": "c1",
+      "montant": 300000,
+      "tauxAnnuel": 12,
+      "dureeMois": 12,
+      "statut": "approuve",
+      "dateCreation": "2026-03-01",
+      "mensualite": 26638
+    }
   ],
-  "echeances": []
+  "echeances": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

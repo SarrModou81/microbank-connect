@@ -1,0 +1,72 @@
+<div class="mbc-page">
+  <div class="mbc-page-header">
+    <div>
+      <h1>Nouveau compte</h1>
+      <p>Ouvrez un compte courant ou épargne pour un client.</p>
+    </div>
+  </div>
+
+  <div class="mbc-card">
+    <div class="mbc-card-body">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="clientId">Client</label>
+            <select id="clientId" class="form-select" formControlName="clientId"
+              [class.is-invalid-field]="form.controls.clientId.invalid && form.controls.clientId.touched">
+              <option value="" disabled>Sélectionner un client</option>
+              @for (client of clients(); track client.id) {
+                <option [value]="client.id">{{ client.prenom }} {{ client.nom }}</option>
+              }
+            </select>
+            @if (form.controls.clientId.invalid && form.controls.clientId.touched) {
+              <p class="form-text-error">Sélectionnez un client.</p>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="type">Type de compte</label>
+            <select id="type" class="form-select" formControlName="type">
+              <option value="courant">Compte courant</option>
+              <option value="epargne">Compte épargne</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="soldeInitial">Dépôt initial (FCFA)</label>
+            <input id="soldeInitial" type="number" class="form-control" formControlName="soldeInitial"
+              [class.is-invalid-field]="form.controls.soldeInitial.invalid && form.controls.soldeInitial.touched" />
+            @if (form.controls.soldeInitial.invalid && form.controls.soldeInitial.touched) {
+              <p class="form-text-error">Le dépôt initial doit être positif.</p>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="plafondRetrait">Plafond de retrait journalier (FCFA)</label>
+            <input id="plafondRetrait" type="number" class="form-control" formControlName="plafondRetrait"
+              [class.is-invalid-field]="form.controls.plafondRetrait.invalid && form.controls.plafondRetrait.touched" />
+            @if (form.controls.plafondRetrait.invalid && form.controls.plafondRetrait.touched) {
+              <p class="form-text-error">
+                Le plafond doit être compris entre {{ plafondBounds().min | number }} et {{ plafondBounds().max | number }} FCFA.
+              </p>
+            }
+          </div>
+        </div>
+
+        @if (errorMessage()) {
+          <div class="mbc-badge mbc-badge-danger mt-3"><span class="mbc-badge-dot"></span>{{ errorMessage() }}</div>
+        }
+
+        <div class="mbc-divider"></div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+            @if (submitting()) { <span class="spinner-border spinner-border-sm me-2"></span> }
+            Ouvrir le compte
+          </button>
+          <a routerLink="/comptes" class="btn btn-outline-primary">Annuler</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

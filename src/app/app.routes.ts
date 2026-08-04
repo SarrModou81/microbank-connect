@@ -22,16 +22,12 @@ export const routes: Routes = [
       {
         path: 'clients',
         canActivate: [roleGuard(['agent', 'gestionnaire'])],
-        loadComponent: () =>
-          import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
-        data: { title: 'Clients' },
-      },
-      {
+        loadChildren: () => import('./features/clients/clients.routes').then((m) => m.CLIENTS_ROUTES),
+        },
+        {
         path: 'comptes',
-        loadComponent: () =>
-          import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
-        data: { title: 'Comptes' },
-      },
+        loadChildren: () => import('./features/comptes/comptes.routes').then((m) => m.COMPTES_ROUTES),
+        },
       {
         path: 'operations',
         loadComponent: () =>
@@ -57,7 +53,8 @@ export const routes: Routes = [
           import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
         data: { title: 'Rapports' },
       },
-    ],
+      
+            ],
   },
   { path: '**', redirectTo: 'login' },
 ];

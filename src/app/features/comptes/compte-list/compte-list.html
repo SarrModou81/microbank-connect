@@ -1,0 +1,52 @@
+<div class="mbc-page">
+  <div class="mbc-page-header">
+    <div>
+      <h1>Comptes</h1>
+      <p>{{ isClient() ? 'Consultez vos comptes et leurs soldes.' : 'Gérez les comptes bancaires des clients.' }}</p>
+    </div>
+    @if (!isClient()) {
+      <a routerLink="nouveau" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nouveau compte</a>
+    }
+  </div>
+
+  <div class="mbc-card">
+    <div class="mbc-card-header">
+      <h2>Liste des comptes</h2>
+      <input type="search" class="form-control" style="max-width: 260px;" placeholder="Rechercher un numéro de compte..."
+        [value]="searchTerm()" (input)="onSearch($any($event.target).value)" />
+    </div>
+
+    @if (loading()) {
+      <div class="mbc-spinner-wrap"><span class="spinner-border"></span></div>
+    } @else if (loadError()) {
+      <div class="mbc-empty"><i class="fa-solid fa-triangle-exclamation"></i><p>{{ loadError() }}</p></div>
+    } @else if (comptes().length === 0) {
+      <div class="mbc-empty"><i class="fa-solid fa-wallet"></i><p>Aucun compte trouvé.</p></div>
+    } @else {
+      <div class="mbc-table-responsive">
+        <table class="mbc-table">
+          <thead><tr><th>N° compte</th><th>Type</th><th>Solde</th><th>Statut</th><th></th></tr></thead>
+          <tbody>
+            @for (compte of comptes(); track compte.id) {
+              <tr>
+                <td>{{ compte.numero }}</td>
+                <td>{{ compte.type === 'courant' ? 'Courant' : 'Épargne' }}</td>
+                <td>{{ compte.solde | number: '1.0-0' }} FCFA</td>
+                <td>
+                  <span class="mbc-badge" [class.mbc-badge-success]="compte.statut === 'actif'"
+                    [class.mbc-badge-warning]="compte.statut === 'suspendu'"
+                    [class.mbc-badge-danger]="compte.statut === 'ferme'">
+                    <span class="mbc-badge-dot"></span>{{ compte.statut }}
+                  </span>
+                </td>
+                <td class="text-end">
+                  <a [routerLink]="[compte.id]" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

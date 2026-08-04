@@ -1,0 +1,55 @@
+<div class="mbc-page">
+  @if (loading()) {
+    <div class="mbc-spinner-wrap"><span class="spinner-border"></span></div>
+  } @else if (compte(); as cpt) {
+    <div class="mbc-page-header">
+      <div>
+        <h1>{{ cpt.numero }}</h1>
+        <p>{{ cpt.type === 'courant' ? 'Compte courant' : 'Compte épargne' }} — ouvert le {{ cpt.dateOuverture | date: 'dd/MM/yyyy' }}</p>
+      </div>
+      <a routerLink="/comptes" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left"></i> Retour</a>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-primary-light); color: var(--mbc-primary);"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div class="mbc-stat-value">{{ cpt.solde | number: '1.0-0' }} FCFA</div>
+          <div class="mbc-stat-label">Solde disponible</div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-gold-light); color: var(--mbc-gold);"><i class="fa-solid fa-gauge"></i></div>
+          <div class="mbc-stat-value">{{ cpt.plafondRetrait | number: '1.0-0' }} FCFA</div>
+          <div class="mbc-stat-label">Plafond de retrait / jour</div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="mbc-stat-card">
+          <div class="mbc-stat-icon" style="background: var(--mbc-success-light); color: var(--mbc-success);"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="mbc-stat-value" style="font-size:1.1rem;">{{ cpt.statut }}</div>
+          <div class="mbc-stat-label">Statut du compte</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mbc-card mt-3">
+      <div class="mbc-card-header">
+        <h3>Titulaire</h3>
+        @if (client(); as c) { <a [routerLink]="['/clients', c.id]" class="btn btn-outline-primary btn-sm">Voir la fiche client</a> }
+      </div>
+      <div class="mbc-card-body">
+        @if (client(); as c) { <p class="mb-0"><strong>{{ c.prenom }} {{ c.nom }}</strong> — {{ c.email }} — {{ c.telephone }}</p> }
+      </div>
+    </div>
+
+    <div class="mbc-card mt-3">
+      <div class="mbc-card-header"><h3>Opérations</h3></div>
+      <div class="mbc-empty">
+        <i class="fa-solid fa-right-left"></i>
+        <p>Le module Opérations (dépôts, retraits, virements, historique) sera branché à l'étape suivante.</p>
+      </div>
+    </div>
+  }
+</div>
