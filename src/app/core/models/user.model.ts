@@ -8,3 +8,8 @@ export interface User {
   role: UserRole;
   clientId?: string;
 }
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}

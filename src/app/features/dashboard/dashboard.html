@@ -1,0 +1,15 @@
+<div class="mbc-page">
+  <div class="mbc-page-header">
+    <div>
+      <h1>Bonjour {{ currentUser()?.prenom }}</h1>
+      <p>Voici un aperçu de votre espace {{ role() | roleLabel }}.</p>
+    </div>
+  </div>
+
+  <div class="mbc-card">
+    <div class="mbc-empty">
+      <i class="fa-solid fa-chart-simple"></i>
+      <p>Les indicateurs clés (comptes, opérations, crédits) seront branchés à l'étape suivante.</p>
+    </div>
+  </div>
+</div>

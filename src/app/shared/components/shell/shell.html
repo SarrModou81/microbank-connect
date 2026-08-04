@@ -1,0 +1,35 @@
+<div class="mbc-shell" [class.sidebar-open]="sidebarOpen()">
+  <aside class="mbc-sidebar">
+    <div class="mbc-sidebar-brand">
+      <i class="fa-solid fa-building-columns"></i>
+      <span>MicroBank Connect</span>
+    </div>
+    <nav class="mbc-sidebar-nav">
+      @for (item of visibleNavItems(); track item.path) {
+        <a class="mbc-sidebar-link" [routerLink]="item.path" routerLinkActive="active" (click)="closeSidebar()">
+          <i [class]="item.icon"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+  </aside>
+
+  <div class="mbc-shell-main">
+    <header class="mbc-topbar">
+      <button type="button" class="mbc-sidebar-toggle" (click)="toggleSidebar()" aria-label="Ouvrir le menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mbc-topbar-user">
+        <span class="mbc-topbar-name">{{ currentUser()?.prenom }} {{ currentUser()?.nom }}</span>
+        <span class="mbc-badge mbc-badge-info">{{ role() | roleLabel }}</span>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+        </button>
+      </div>
+    </header>
+
+    <main class="mbc-shell-content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
