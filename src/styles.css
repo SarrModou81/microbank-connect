@@ -1,2 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 body { font-family: var(--mbc-font-body); }
+.mbc-detail-list { display: grid; grid-template-columns: 140px 1fr; gap: 0.5rem 1rem; margin: 0; }
+.mbc-detail-list dt { color: var(--mbc-text-muted); font-size: 0.82rem; font-weight: 600; }
+.mbc-detail-list dd { margin: 0; font-weight: 600; }

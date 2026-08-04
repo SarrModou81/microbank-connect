@@ -28,13 +28,11 @@ export const routes: Routes = [
         path: 'comptes',
         loadChildren: () => import('./features/comptes/comptes.routes').then((m) => m.COMPTES_ROUTES),
         },
-      {
+        {
         path: 'operations',
-        loadComponent: () =>
-          import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
-        data: { title: 'Opérations' },
-      },
-      {
+        loadChildren: () => import('./features/operations/operations.routes').then((m) => m.OPERATIONS_ROUTES),
+        },
+        {
         path: 'credits',
         loadComponent: () =>
           import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
