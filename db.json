@@ -133,8 +133,67 @@
       "statut": "approuve",
       "dateCreation": "2026-03-01",
       "mensualite": 26638
+    },
+    {
+      "clientId": "c1",
+      "montant": 2000000,
+      "tauxAnnuel": 12,
+      "dureeMois": 12,
+      "mensualite": 177698,
+      "statut": "approuve",
+      "dateCreation": "2026-08-04T13:39:12.465Z",
+      "id": "QCtZfitO5gU"
     }
   ],
-  "echeances": [],
+  "echeances": [
+    {
+      "creditId": "QCtZfitO5gU",
+      "numero": 7,
+      "dateEcheance": "2027-03-04T13:39:12.465Z",
+      "montant": 177698,
+      "payee": true,
+      "id": "3dofLjK7BXY"
+    },
+    {
+      "creditId": "QCtZfitO5gU",
+      "numero": 10,
+      "dateEcheance": "2027-06-04T13:39:12.465Z",
+      "montant": 177698,
+      "payee": false,
+      "id": "xZLWmd1feVQ"
+    },
+    {
+      "creditId": "QCtZfitO5gU",
+      "numero": 8,
+      "dateEcheance": "2027-04-04T13:39:12.465Z",
+      "montant": 177698,
+      "payee": false,
+      "id": "dn0v1eKt5-E"
+    },
+    {
+      "creditId": "QCtZfitO5gU",
+      "numero": 9,
+      "dateEcheance": "2027-05-04T13:39:12.465Z",
+      "montant": 177698,
+      "payee": false,
+      "id": "-V-5LlQ8_6s"
+    },
+    {
+      "creditId": "QCtZfitO5gU",
+      "numero": 11,
+      "dateEcheance": "2027-07-04T13:39:12.465Z",
+      "montant": 177698,
+      "payee": false,
+      "id": "EgEcuJzUHNQ"
+    },
+    {
+      "creditId": "QCtZfitO5gU",
+      "numero": 12,
+      "dateEcheance": "2027-08-04T13:39:12.465Z",
+      "montant": 177698,
+      "payee": false,
+      "id": "vr-8qJk1Tho"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

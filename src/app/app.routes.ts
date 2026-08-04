@@ -34,16 +34,13 @@ export const routes: Routes = [
         },
         {
         path: 'credits',
-        loadComponent: () =>
-          import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
-        data: { title: 'Crédits' },
-      },
-      {
+        loadChildren: () => import('./features/credits/credits.routes').then((m) => m.CREDITS_ROUTES),
+        },
+        {
         path: 'notifications',
-        loadComponent: () =>
-          import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
+        loadComponent: () => import('./features/notifications/notifications').then((m) => m.NotificationsComponent),
         data: { title: 'Notifications' },
-      },
+        },
       {
         path: 'rapports',
         canActivate: [roleGuard(['gestionnaire'])],

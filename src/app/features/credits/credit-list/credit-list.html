@@ -1,0 +1,49 @@
+<div class="mbc-page">
+  <div class="mbc-page-header">
+    <div>
+      <h1>Crédits</h1>
+      <p>{{ isClient() ? 'Suivez vos demandes et crédits en cours.' : 'Suivez les demandes de crédit des clients.' }}</p>
+    </div>
+    <div class="d-flex gap-2">
+      <a routerLink="simulateur" class="btn btn-outline-primary"><i class="fa-solid fa-calculator"></i> Simuler</a>
+      <a routerLink="nouvelle" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nouvelle demande</a>
+    </div>
+  </div>
+
+  <div class="mbc-card">
+    @if (loading()) {
+      <div class="mbc-spinner-wrap"><span class="spinner-border"></span></div>
+    } @else if (loadError()) {
+      <div class="mbc-empty"><i class="fa-solid fa-triangle-exclamation"></i><p>{{ loadError() }}</p></div>
+    } @else if (credits().length === 0) {
+      <div class="mbc-empty"><i class="fa-solid fa-hand-holding-dollar"></i><p>Aucun crédit trouvé.</p></div>
+    } @else {
+      <div class="mbc-table-responsive">
+        <table class="mbc-table">
+          <thead><tr><th>Montant</th><th>Taux</th><th>Durée</th><th>Mensualité</th><th>Statut</th><th></th></tr></thead>
+          <tbody>
+            @for (credit of credits(); track credit.id) {
+              <tr>
+                <td>{{ credit.montant | number: '1.0-0' }} FCFA</td>
+                <td>{{ credit.tauxAnnuel }} %</td>
+                <td>{{ credit.dureeMois }} mois</td>
+                <td>{{ credit.mensualite | number: '1.0-0' }} FCFA</td>
+                <td>
+                  <span class="mbc-badge"
+                    [class.mbc-badge-neutral]="credit.statut === 'simule'"
+                    [class.mbc-badge-warning]="credit.statut === 'en_attente'"
+                    [class.mbc-badge-success]="credit.statut === 'approuve'"
+                    [class.mbc-badge-danger]="credit.statut === 'rejete'"
+                    [class.mbc-badge-gold]="credit.statut === 'solde'">{{ credit.statut }}</span>
+                </td>
+                <td class="text-end">
+                  <a [routerLink]="[credit.id]" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

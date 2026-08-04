@@ -1,0 +1,73 @@
+<div class="mbc-page">
+  @if (loading()) {
+    <div class="mbc-spinner-wrap"><span class="spinner-border"></span></div>
+  } @else if (credit(); as cr) {
+    <div class="mbc-page-header">
+      <div>
+        <h1>Crédit {{ cr.montant | number: '1.0-0' }} FCFA</h1>
+        <p>Demandé le {{ cr.dateCreation | date: 'dd/MM/yyyy' }}@if (client()) { — {{ client()?.prenom }} {{ client()?.nom }} }</p>
+      </div>
+      <a routerLink="/credits" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left"></i> Retour</a>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-3"><div class="mbc-stat-card"><div class="mbc-stat-value">{{ cr.tauxAnnuel }} %</div><div class="mbc-stat-label">Taux annuel</div></div></div>
+      <div class="col-lg-3"><div class="mbc-stat-card"><div class="mbc-stat-value">{{ cr.dureeMois }} mois</div><div class="mbc-stat-label">Durée</div></div></div>
+      <div class="col-lg-3"><div class="mbc-stat-card"><div class="mbc-stat-value">{{ cr.mensualite | number: '1.0-0' }} FCFA</div><div class="mbc-stat-label">Mensualité</div></div></div>
+      <div class="col-lg-3">
+        <div class="mbc-stat-card">
+          <span class="mbc-badge"
+            [class.mbc-badge-warning]="cr.statut === 'en_attente'"
+            [class.mbc-badge-success]="cr.statut === 'approuve'"
+            [class.mbc-badge-danger]="cr.statut === 'rejete'"
+            [class.mbc-badge-gold]="cr.statut === 'solde'">{{ cr.statut }}</span>
+          <div class="mbc-stat-label mt-2">Statut</div>
+        </div>
+      </div>
+    </div>
+
+    @if (canManage() && cr.statut === 'en_attente') {
+      <div class="mbc-card mt-3">
+        <div class="mbc-card-body d-flex gap-2">
+          <button type="button" class="btn btn-accent" (click)="approuver()" [disabled]="processing()"><i class="fa-solid fa-check"></i> Approuver</button>
+          <button type="button" class="btn btn-outline-primary" (click)="rejeter()" [disabled]="processing()"><i class="fa-solid fa-xmark"></i> Rejeter</button>
+        </div>
+      </div>
+    }
+
+    <div class="mbc-card mt-3">
+      <div class="mbc-card-header">
+        <h3>Échéancier de remboursement</h3>
+        @if (echeances().length > 0) { <span class="text-muted-mbc">{{ totalPaye() }} / {{ echeances().length }} échéances payées</span> }
+      </div>
+      @if (echeances().length === 0) {
+        <div class="mbc-empty"><i class="fa-solid fa-calendar-days"></i><p>L'échéancier sera généré dès l'approbation du crédit.</p></div>
+      } @else {
+        <div class="mbc-table-responsive">
+          <table class="mbc-table">
+            <thead><tr><th>N°</th><th>Échéance</th><th>Montant</th><th>Statut</th><th></th></tr></thead>
+            <tbody>
+              @for (echeance of echeances(); track echeance.id) {
+                <tr>
+                  <td>{{ echeance.numero }}</td>
+                  <td>{{ echeance.dateEcheance | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ echeance.montant | number: '1.0-0' }} FCFA</td>
+                  <td>
+                    <span class="mbc-badge" [class.mbc-badge-success]="echeance.payee" [class.mbc-badge-neutral]="!echeance.payee">
+                      {{ echeance.payee ? 'Payée' : 'À payer' }}
+                    </span>
+                  </td>
+                  <td class="text-end">
+                    @if (canManage() && !echeance.payee) {
+                      <button type="button" class="btn btn-outline-primary btn-sm" (click)="payerEcheance(echeance.id)">Marquer payée</button>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  }
+</div>

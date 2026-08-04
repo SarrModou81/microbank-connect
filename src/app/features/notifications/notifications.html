@@ -1,0 +1,35 @@
+<div class="mbc-page">
+  <div class="mbc-page-header">
+    <div>
+      <h1>Notifications</h1>
+      <p>Alertes sur vos comptes, crédits et opérations.</p>
+    </div>
+  </div>
+
+  <div class="mbc-card">
+    @if (alertes().length === 0) {
+      <div class="mbc-empty"><i class="fa-solid fa-bell-slash"></i><p>Aucune alerte pour le moment.</p></div>
+    } @else {
+      <div class="mbc-notif-list">
+        @for (alerte of alertes(); track alerte.id) {
+          <div class="mbc-notif-item">
+            <div class="mbc-notif-icon"
+              [class.mbc-notif-danger]="alerte.type === 'solde_bas'"
+              [class.mbc-notif-warning]="alerte.type === 'echeance'"
+              [class.mbc-notif-success]="alerte.type === 'operation'">
+              <i class="fa-solid"
+                [class.fa-triangle-exclamation]="alerte.type === 'solde_bas'"
+                [class.fa-calendar-days]="alerte.type === 'echeance'"
+                [class.fa-circle-check]="alerte.type === 'operation'"></i>
+            </div>
+            <div class="mbc-notif-body">
+              <p class="mbc-notif-title">{{ alerte.titre }}</p>
+              <p class="mbc-notif-message">{{ alerte.message }}</p>
+              <p class="mbc-notif-date">{{ alerte.date | date: 'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
