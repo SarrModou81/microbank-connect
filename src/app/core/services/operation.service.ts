@@ -11,6 +11,9 @@ export class OperationService {
   private readonly transactionService = inject(TransactionService);
 
   deposer(compte: Compte, montant: number, description?: string): Observable<Transaction> {
+    if (compte.statut !== 'actif') {
+      return throwError(() => new Error('Ce compte est bloqué, aucune opération n\'est possible.'));
+    }
     return this.compteService.updateSolde(compte.id, compte.solde + montant).pipe(
       switchMap(() =>
         this.transactionService.create({
@@ -26,6 +29,9 @@ export class OperationService {
   }
 
   retirer(compte: Compte, montant: number, description?: string): Observable<Transaction> {
+    if (compte.statut !== 'actif') {
+      return throwError(() => new Error('Ce compte est bloqué, aucune opération n\'est possible.'));
+    }
     if (montant > compte.solde) {
       return throwError(() => new Error('Solde insuffisant.'));
     }
@@ -47,6 +53,12 @@ export class OperationService {
   }
 
   virer(source: Compte, destination: Compte, montant: number, description?: string): Observable<Transaction> {
+    if (source.statut !== 'actif') {
+      return throwError(() => new Error('Le compte source est bloqué, aucune opération n\'est possible.'));
+    }
+    if (destination.statut !== 'actif') {
+      return throwError(() => new Error('Le compte destinataire est bloqué, aucune opération n\'est possible.'));
+    }
     if (source.id === destination.id) {
       return throwError(() => new Error('Le compte source et destinataire doivent être différents.'));
     }

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CreditService } from '../../../core/services/credit.service';
 import { ClientService } from '../../../core/services/client.service';
+import { CompteService } from '../../../core/services/compte.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { AlertService } from '../../../core/services/alert.service';
 
@@ -19,11 +20,11 @@ export class CreditRequestComponent {
   private readonly fb = inject(FormBuilder);
   private readonly creditService = inject(CreditService);
   private readonly clientService = inject(ClientService);
+  private readonly compteService = inject(CompteService);
   private readonly authService = inject(AuthService);
+  private readonly alertService = inject(AlertService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly alertService = inject(AlertService);
-
 
   isClient = computed(() => this.authService.role() === 'client');
   clients = this.clientService.clients;
@@ -47,49 +48,62 @@ export class CreditRequestComponent {
     return this.creditService.simulerMensualite(montant, tauxAnnuel ?? 0, dureeMois);
   });
 
+  clientABloque = computed(() => {
+    const clientId = this.formValue().clientId;
+    if (!clientId) return false;
+    return this.compteService.comptes().some((c) => c.clientId === clientId && c.statut === 'suspendu');
+  });
+
   constructor() {
     if (!this.isClient()) {
       this.clientService.loadAll();
     }
+    this.compteService.loadAll();
   }
 
+  submit(): void {
+    if (this.form.invalid || this.submitting()) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-submit(): void {
-  if (this.form.invalid || this.submitting()) {
-    this.form.markAllAsTouched();
-    return;
-  }
-  this.submitting.set(true);
-  this.errorMessage.set(null);
+    const { clientId, montant, tauxAnnuel, dureeMois } = this.form.getRawValue();
 
-  const { clientId, montant, tauxAnnuel, dureeMois } = this.form.getRawValue();
-  this.creditService.demander(clientId, montant, tauxAnnuel, dureeMois).subscribe({
-    next: (credit) => {
-      if (this.isClient()) {
-        this.clientService.getById(clientId).subscribe((client) => {
-          this.alertService
-            .notifierUtilisateur(
-              client.agentId,
+    if (this.clientABloque()) {
+      this.errorMessage.set('Ce client a un compte bloqué : aucune nouvelle demande de crédit ne peut être soumise.');
+      return;
+    }
+
+    this.submitting.set(true);
+    this.errorMessage.set(null);
+
+    this.creditService.demander(clientId, montant, tauxAnnuel, dureeMois).subscribe({
+      next: (credit) => {
+        if (this.isClient()) {
+          this.clientService.getById(clientId).subscribe((client) => {
+            this.alertService
+              .notifierUtilisateur(
+                client.agentId,
+                'Nouvelle demande de crédit',
+                `${client.prenom} ${client.nom} a demandé un crédit de ${montant.toLocaleString()} FCFA.`,
+                'info',
+                `/credits/${credit.id}`
+              )
+              .subscribe();
+            this.alertService.notifierGestionnaires(
               'Nouvelle demande de crédit',
               `${client.prenom} ${client.nom} a demandé un crédit de ${montant.toLocaleString()} FCFA.`,
               'info',
               `/credits/${credit.id}`
-            )
-            .subscribe();
-          this.alertService.notifierGestionnaires(
-            'Nouvelle demande de crédit',
-            `${client.prenom} ${client.nom} a demandé un crédit de ${montant.toLocaleString()} FCFA.`,
-            'info',
-            `/credits/${credit.id}`
-          );
-        });
-      }
-      this.router.navigate(['/credits', credit.id]);
-    },
-    error: () => {
-      this.submitting.set(false);
-      this.errorMessage.set('Une erreur est survenue lors de la demande.');
-    },
-  });
-}
+            );
+          });
+        }
+        this.router.navigate(['/credits', credit.id]);
+      },
+      error: () => {
+        this.submitting.set(false);
+        this.errorMessage.set('Une erreur est survenue lors de la demande.');
+      },
+    });
+  }
 }

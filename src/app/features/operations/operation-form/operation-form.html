@@ -24,9 +24,10 @@
               <label class="form-label" for="compteId">Compte {{ form.controls.type.value === 'virement' ? 'source' : '' }}</label>
               <select id="compteId" class="form-select" formControlName="compteId"
                 [class.is-invalid-field]="form.controls.compteId.invalid && form.controls.compteId.touched">
-                <option value="" disabled>Sélectionner un compte</option>
                 @for (compte of comptes(); track compte.id) {
-                  <option [value]="compte.id">{{ compte.numero }} ({{ compte.solde | number: '1.0-0' }} FCFA)</option>
+                  <option [value]="compte.id" [disabled]="compte.statut !== 'actif'">
+                    {{ compte.numero }} ({{ compte.solde | number: '1.0-0' }} FCFA){{ compte.statut !== 'actif' ? ' - Bloqué' : '' }}
+                  </option>
                 }
               </select>
             </div>
@@ -36,9 +37,10 @@
                 <label class="form-label" for="compteDestinataireId">Compte destinataire</label>
                 <select id="compteDestinataireId" class="form-select" formControlName="compteDestinataireId"
                   [class.is-invalid-field]="form.controls.compteDestinataireId.invalid && form.controls.compteDestinataireId.touched">
-                  <option value="" disabled>Sélectionner un compte</option>
                   @for (compte of comptes(); track compte.id) {
-                    <option [value]="compte.id">{{ compte.numero }}</option>
+                    <option [value]="compte.id" [disabled]="compte.statut !== 'actif'">
+                      {{ compte.numero }} ({{ compte.solde | number: '1.0-0' }} FCFA){{ compte.statut !== 'actif' ? ' - Bloqué' : '' }}
+                    </option>
                   }
                 </select>
               </div>

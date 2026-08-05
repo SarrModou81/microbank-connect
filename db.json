@@ -607,7 +607,7 @@
       "message": "Fatou Fall a demandé un crédit de 1 000 000 FCFA.",
       "type": "info",
       "date": "2026-08-05T16:17:12.145Z",
-      "lue": false,
+      "lue": true,
       "lien": "/credits/-xHLIGdb0AU",
       "id": "AoJa1HUnkTQ"
     },
@@ -630,6 +630,46 @@
       "lue": true,
       "lien": "/credits/-xHLIGdb0AU",
       "id": "FwzSXtWo1vE"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Compte bloqué",
+      "message": "Votre compte MBC-3513-CT a été bloqué par un agent.",
+      "type": "avertissement",
+      "date": "2026-08-05T16:31:18.049Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "qRpeWTQOg8A"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte bloqué",
+      "message": "Le compte MBC-3513-CT a été bloqué.",
+      "type": "info",
+      "date": "2026-08-05T16:31:18.068Z",
+      "lue": false,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "r9bfQLnHnEY"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Compte débloqué",
+      "message": "Votre compte MBC-3513-CT a été débloqué par un agent.",
+      "type": "succes",
+      "date": "2026-08-05T16:34:25.184Z",
+      "lue": false,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "hFb3RzRcQb0"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte débloqué",
+      "message": "Le compte MBC-3513-CT a été débloqué.",
+      "type": "info",
+      "date": "2026-08-05T16:34:25.190Z",
+      "lue": false,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "Kv_whm7jC9s"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

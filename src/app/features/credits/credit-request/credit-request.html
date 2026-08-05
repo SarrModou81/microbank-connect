@@ -51,13 +51,20 @@
           Mensualité estimée : {{ mensualite() | number: '1.0-0' }} FCFA / mois
         </div>
 
+        @if (clientABloque()) {
+          <div class="mbc-badge mbc-badge-danger mb-3">
+            <span class="mbc-badge-dot"></span>
+            Ce client a un compte bloqué. Aucune nouvelle demande de crédit n'est possible tant que le compte n'est pas débloqué.
+          </div>
+        }
+
         @if (errorMessage()) {
           <div class="mbc-badge mbc-badge-danger mb-3"><span class="mbc-badge-dot"></span>{{ errorMessage() }}</div>
         }
 
         <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-primary" [disabled]="submitting()">
-            @if (submitting()) { <span class="spinner-border spinner-border-sm me-2"></span> }
+          <button type="submit" class="btn btn-primary" [disabled]="submitting() || clientABloque()">
+              @if (submitting()) { <span class="spinner-border spinner-border-sm me-2"></span> }
             Soumettre la demande
           </button>
           <a routerLink="/credits" class="btn btn-outline-primary">Annuler</a>
