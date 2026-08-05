@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, switchMap, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { LoginCredentials, User, UserRole } from '../models/user.model';
 
@@ -25,15 +25,40 @@ export class AuthService {
 
   login(credentials: LoginCredentials): Observable<User> {
     return this.http
-      .get<User[]>(`${environment.apiUrl}/users`, { params: { ...credentials } })
+      .get<(User & { password: string })[]>(`${environment.apiUrl}/users`, { params: { ...credentials } })
       .pipe(
         map((users) => {
           if (!users.length) {
             throw new Error('Identifiants incorrects');
           }
-          return users[0];
+          const { password, ...user } = users[0];
+          return user;
         }),
         tap((user) => this.startSession(user))
+      );
+  }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<User> {
+    const user = this.currentUser();
+    if (!user) {
+      return throwError(() => new Error('Utilisateur non connecté.'));
+    }
+    return this.http
+      .get<(User & { password: string })[]>(`${environment.apiUrl}/users`, {
+        params: { id: user.id, password: oldPassword },
+      })
+      .pipe(
+        switchMap((matches) => {
+          if (!matches.length) {
+            return throwError(() => new Error('Mot de passe actuel incorrect.'));
+          }
+          return this.http.patch<User & { password: string }>(`${environment.apiUrl}/users/${user.id}`, {
+            password: newPassword,
+            mustChangePassword: false,
+          });
+        }),
+        map(({ password, ...updated }) => updated),
+        tap((updated) => this.startSession(updated))
       );
   }
 

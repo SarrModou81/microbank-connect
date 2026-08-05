@@ -24,6 +24,16 @@
       "role": "client",
       "clientId": "c1",
       "password": "demo123"
+    },
+    {
+      "nom": "sarr",
+      "prenom": "modou",
+      "email": "mdsa2r81@gmail.com",
+      "role": "client",
+      "clientId": "hVsCDm-Tf_Q",
+      "password": "passer123",
+      "mustChangePassword": false,
+      "id": "sEpk3s4WXzk"
     }
   ],
   "clients": [
@@ -44,12 +54,12 @@
       "prenom": "modou",
       "email": "mdsa2r81@gmail.com",
       "telephone": "782963790",
-      "adresse": "mboro",
-      "dateNaissance": "1999-02-03",
+      "adresse": "Mboro",
+      "dateNaissance": "1999-11-07",
       "numeroPiece": "12342526728826",
       "agentId": "u2",
-      "dateCreation": "2026-08-04T12:54:12.498Z",
-      "id": "--LkheU4rNk"
+      "dateCreation": "2026-08-05T14:34:14.980Z",
+      "id": "hVsCDm-Tf_Q"
     }
   ],
   "comptes": [
@@ -82,6 +92,16 @@
       "statut": "actif",
       "dateOuverture": "2026-08-04T12:54:45.831Z",
       "id": "DnD8Zg5sxf8"
+    },
+    {
+      "numero": "MBC-3513-CT",
+      "clientId": "hVsCDm-Tf_Q",
+      "type": "courant",
+      "solde": 350000,
+      "plafondRetrait": 200000,
+      "statut": "actif",
+      "dateOuverture": "2026-08-05T14:36:29.583Z",
+      "id": "UuVvvHbHrOI"
     }
   ],
   "transactions": [
@@ -121,6 +141,15 @@
       "statut": "reussie",
       "description": "",
       "id": "YAfzrQK9LMQ"
+    },
+    {
+      "compteId": "UuVvvHbHrOI",
+      "type": "depot",
+      "montant": 50000,
+      "date": "2026-08-05T14:37:10.275Z",
+      "statut": "reussie",
+      "description": "",
+      "id": "Vf7SA0v6asc"
     }
   ],
   "credits": [
@@ -143,6 +172,16 @@
       "statut": "approuve",
       "dateCreation": "2026-08-04T13:39:12.465Z",
       "id": "QCtZfitO5gU"
+    },
+    {
+      "clientId": "hVsCDm-Tf_Q",
+      "montant": 500000,
+      "tauxAnnuel": 12,
+      "dureeMois": 10,
+      "mensualite": 52791,
+      "statut": "en_attente",
+      "dateCreation": "2026-08-05T14:38:46.743Z",
+      "id": "w5sEr1q7dKs"
     }
   ],
   "echeances": [

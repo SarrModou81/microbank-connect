@@ -19,12 +19,25 @@
       <button type="button" class="mbc-sidebar-toggle" (click)="toggleSidebar()" aria-label="Ouvrir le menu">
         <i class="fa-solid fa-bars"></i>
       </button>
+
       <div class="mbc-topbar-user">
-        <span class="mbc-topbar-name">{{ currentUser()?.prenom }} {{ currentUser()?.nom }}</span>
-        <span class="mbc-badge mbc-badge-info">{{ role() | roleLabel }}</span>
-        <button type="button" class="btn btn-outline-primary btn-sm" (click)="logout()">
-          <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+        <button type="button" class="mbc-profile-trigger" (click)="toggleProfileMenu()">
+          <span class="mbc-topbar-name">{{ currentUser()?.prenom }} {{ currentUser()?.nom }}</span>
+          <span class="mbc-badge mbc-badge-info">{{ role() | roleLabel }}</span>
+          <i class="fa-solid fa-chevron-down mbc-profile-chevron" [class.open]="profileMenuOpen()"></i>
         </button>
+
+        @if (profileMenuOpen()) {
+          <div class="mbc-profile-overlay" (click)="closeProfileMenu()"></div>
+          <div class="mbc-profile-menu">
+            <a routerLink="/changer-mot-de-passe" class="mbc-profile-menu-item" (click)="closeProfileMenu()">
+              <i class="fa-solid fa-key"></i> Changer le mot de passe
+            </a>
+            <button type="button" class="mbc-profile-menu-item mbc-profile-menu-danger" (click)="requestLogout()">
+              <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+            </button>
+          </div>
+        }
       </div>
     </header>
 
@@ -33,3 +46,18 @@
     </main>
   </div>
 </div>
+
+@if (showLogoutConfirm()) {
+  <div class="mbc-confirm-overlay">
+    <div class="mbc-card mbc-confirm-card">
+      <div class="mbc-card-body">
+        <h3>Confirmer la déconnexion</h3>
+        <p class="text-muted-mbc">Voulez-vous vraiment vous déconnecter de MicroBank Connect ?</p>
+        <div class="d-flex gap-2 justify-content-end mt-3">
+          <button type="button" class="btn btn-outline-primary" (click)="cancelLogout()">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="confirmLogout()">Se déconnecter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

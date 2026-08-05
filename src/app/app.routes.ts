@@ -41,6 +41,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/notifications/notifications').then((m) => m.NotificationsComponent),
         data: { title: 'Notifications' },
         },
+        {
+        path: 'changer-mot-de-passe',
+        loadComponent: () => import('./features/auth/change-password/change-password').then((m) => m.ChangePasswordComponent),
+        data: { title: 'Changer le mot de passe' },
+        },
       {
         path: 'rapports',
         canActivate: [roleGuard(['gestionnaire'])],

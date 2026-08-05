@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { ClientService } from '../../../core/services/client.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { UserService } from '../../../core/services/user.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-client-form',
@@ -15,6 +18,8 @@ export class ClientFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly clientService = inject(ClientService);
   private readonly authService = inject(AuthService);
+  private readonly userService = inject(UserService);
+  private readonly notifications = inject(NotificationService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
@@ -49,16 +54,30 @@ export class ClientFormComponent {
     this.errorMessage.set(null);
 
     const value = this.form.getRawValue();
-    const request$ = this.isEdit
-      ? this.clientService.update(this.clientId!, value)
-      : this.clientService.create({ ...value, agentId: this.authService.currentUser()?.id ?? '' });
 
-    request$.subscribe({
-      next: () => this.router.navigateByUrl('/clients'),
-      error: () => {
-        this.errorMessage.set("Une erreur est survenue lors de l'enregistrement.");
-        this.submitting.set(false);
-      },
-    });
+    if (this.isEdit) {
+      this.clientService.update(this.clientId!, value).subscribe({
+        next: () => this.router.navigateByUrl('/clients'),
+        error: () => {
+          this.errorMessage.set("Une erreur est survenue lors de l'enregistrement.");
+          this.submitting.set(false);
+        },
+      });
+      return;
+    }
+
+    this.clientService
+      .create({ ...value, agentId: this.authService.currentUser()?.id ?? '' })
+      .pipe(switchMap((client) => this.userService.creerCompteClient(client.id, client.nom, client.prenom, client.email)))
+      .subscribe({
+        next: () => {
+          this.notifications.success(`Client créé. Identifiants : ${value.email} / mot de passe par défaut "client123".`);
+          this.router.navigateByUrl('/clients');
+        },
+        error: () => {
+          this.errorMessage.set("Une erreur est survenue lors de l'enregistrement.");
+          this.submitting.set(false);
+        },
+      });
   }
 }

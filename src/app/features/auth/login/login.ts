@@ -32,11 +32,13 @@ export class LoginComponent {
     this.errorMessage.set(null);
 
     this.authService.login(this.form.getRawValue()).subscribe({
-      next: () => this.router.navigateByUrl('/dashboard'),
-      error: () => {
-        this.errorMessage.set('Email ou mot de passe incorrect.');
-        this.loading.set(false);
-      },
+        next: (user) => {
+            this.router.navigateByUrl(user.mustChangePassword ? '/changer-mot-de-passe' : '/dashboard');
+        },
+        error: () => {
+            this.errorMessage.set('Email ou mot de passe incorrect.');
+            this.loading.set(false);
+        },
     });
   }
 

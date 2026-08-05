@@ -7,6 +7,7 @@ export interface User {
   email: string;
   role: UserRole;
   clientId?: string;
+  mustChangePassword?: boolean;
 }
 
 export interface LoginCredentials {

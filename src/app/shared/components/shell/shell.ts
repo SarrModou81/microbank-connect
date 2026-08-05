@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserRole } from '../../../core/models/user.model';
 import { RoleLabelPipe } from '../../pipes/role-label-pipe';
@@ -30,9 +30,11 @@ const NAV_ITEMS: NavItem[] = [
 })
 export class ShellComponent {
   private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
 
   sidebarOpen = signal(false);
+  profileMenuOpen = signal(false);
+  showLogoutConfirm = signal(false);
+
   currentUser = this.authService.currentUser;
   role = this.authService.role;
 
@@ -50,7 +52,25 @@ export class ShellComponent {
     this.sidebarOpen.set(false);
   }
 
-  logout(): void {
+  toggleProfileMenu(): void {
+    this.profileMenuOpen.update((open) => !open);
+  }
+
+  closeProfileMenu(): void {
+    this.profileMenuOpen.set(false);
+  }
+
+  requestLogout(): void {
+    this.closeProfileMenu();
+    this.showLogoutConfirm.set(true);
+  }
+
+  cancelLogout(): void {
+    this.showLogoutConfirm.set(false);
+  }
+
+  confirmLogout(): void {
+    this.showLogoutConfirm.set(false);
     this.authService.logout();
   }
 }

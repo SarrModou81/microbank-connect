@@ -41,7 +41,6 @@
   padding: 0 1.5rem; position: sticky; top: 0; z-index: 30;
 }
 .mbc-sidebar-toggle { display: none; background: none; border: none; font-size: 1.2rem; color: var(--mbc-text); }
-.mbc-topbar-user { display: flex; align-items: center; gap: 0.75rem; margin-left: auto; }
 .mbc-topbar-name { font-weight: 700; font-size: 0.88rem; }
 .mbc-shell-content { flex: 1; min-width: 0; }
 @media (max-width: 992px) {
@@ -53,3 +52,39 @@
 @media (max-width: 480px) {
   .mbc-topbar-name { display: none; }
 }
+
+.mbc-topbar-user { display: flex; align-items: center; gap: 0.75rem; margin-left: auto; position: relative; }
+
+.mbc-profile-trigger {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: none; border: none; padding: 0.35rem 0.5rem;
+  border-radius: var(--mbc-radius-sm);
+  cursor: pointer;
+}
+.mbc-profile-trigger:hover { background: #f4f6fb; }
+.mbc-profile-chevron { font-size: 0.7rem; color: var(--mbc-text-muted); transition: transform 0.15s ease; }
+.mbc-profile-chevron.open { transform: rotate(180deg); }
+
+.mbc-profile-overlay { position: fixed; inset: 0; z-index: 45; }
+
+.mbc-profile-menu {
+  position: absolute; top: calc(100% + 0.4rem); right: 0;
+  background: var(--mbc-surface); border: 1px solid var(--mbc-border);
+  border-radius: var(--mbc-radius-sm); box-shadow: var(--mbc-shadow-lg);
+  min-width: 220px; z-index: 46; overflow: hidden;
+}
+.mbc-profile-menu-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  width: 100%; padding: 0.7rem 1rem; border: none; background: none;
+  text-align: left; font-size: 0.88rem; font-weight: 600; color: var(--mbc-text);
+  cursor: pointer; text-decoration: none;
+}
+.mbc-profile-menu-item:hover { background: var(--mbc-primary-light); color: var(--mbc-primary); }
+.mbc-profile-menu-danger { color: var(--mbc-danger); }
+.mbc-profile-menu-danger:hover { background: var(--mbc-danger-light); color: var(--mbc-danger); }
+
+.mbc-confirm-overlay {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45);
+  display: flex; align-items: center; justify-content: center; z-index: 60; padding: 1rem;
+}
+.mbc-confirm-card { max-width: 380px; width: 100%; }
