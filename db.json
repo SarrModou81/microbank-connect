@@ -97,7 +97,7 @@
       "numero": "MBC-3513-CT",
       "clientId": "hVsCDm-Tf_Q",
       "type": "courant",
-      "solde": 350000,
+      "solde": 400000,
       "plafondRetrait": 200000,
       "statut": "actif",
       "dateOuverture": "2026-08-05T14:36:29.583Z",
@@ -150,6 +150,24 @@
       "statut": "reussie",
       "description": "",
       "id": "Vf7SA0v6asc"
+    },
+    {
+      "compteId": "UuVvvHbHrOI",
+      "type": "retrait",
+      "montant": 100000,
+      "date": "2026-08-05T15:42:18.894Z",
+      "statut": "reussie",
+      "description": "",
+      "id": "1IgZYdt9ksU"
+    },
+    {
+      "compteId": "UuVvvHbHrOI",
+      "type": "depot",
+      "montant": 150000,
+      "date": "2026-08-05T15:49:37.690Z",
+      "statut": "reussie",
+      "description": "",
+      "id": "lpGeiFigpZo"
     }
   ],
   "credits": [
@@ -179,9 +197,39 @@
       "tauxAnnuel": 12,
       "dureeMois": 10,
       "mensualite": 52791,
-      "statut": "en_attente",
+      "statut": "approuve",
       "dateCreation": "2026-08-05T14:38:46.743Z",
       "id": "w5sEr1q7dKs"
+    },
+    {
+      "clientId": "hVsCDm-Tf_Q",
+      "montant": 5000000,
+      "tauxAnnuel": 12,
+      "dureeMois": 30,
+      "mensualite": 193741,
+      "statut": "rejete",
+      "dateCreation": "2026-08-05T15:29:50.418Z",
+      "id": "bDemFUZwiio"
+    },
+    {
+      "clientId": "hVsCDm-Tf_Q",
+      "montant": 500000,
+      "tauxAnnuel": 12,
+      "dureeMois": 12,
+      "mensualite": 44424,
+      "statut": "rejete",
+      "dateCreation": "2026-08-05T15:37:18.646Z",
+      "id": "7Eq1A6oCA1c"
+    },
+    {
+      "clientId": "c1",
+      "montant": 1000000,
+      "tauxAnnuel": 12,
+      "dureeMois": 12,
+      "mensualite": 88849,
+      "statut": "approuve",
+      "dateCreation": "2026-08-05T16:17:12.062Z",
+      "id": "-xHLIGdb0AU"
     }
   ],
   "echeances": [
@@ -232,6 +280,356 @@
       "montant": 177698,
       "payee": false,
       "id": "vr-8qJk1Tho"
+    },
+    {
+      "creditId": "w5sEr1q7dKs",
+      "numero": 7,
+      "dateEcheance": "2027-03-05T14:38:46.743Z",
+      "montant": 52791,
+      "payee": true,
+      "id": "87A3eVmTg6U"
+    },
+    {
+      "creditId": "w5sEr1q7dKs",
+      "numero": 8,
+      "dateEcheance": "2027-04-05T14:38:46.743Z",
+      "montant": 52791,
+      "payee": false,
+      "id": "GfGOlBjn1ls"
+    },
+    {
+      "creditId": "w5sEr1q7dKs",
+      "numero": 9,
+      "dateEcheance": "2027-05-05T14:38:46.743Z",
+      "montant": 52791,
+      "payee": false,
+      "id": "BD8ZFZ3Sct0"
+    },
+    {
+      "creditId": "w5sEr1q7dKs",
+      "numero": 10,
+      "dateEcheance": "2027-06-05T14:38:46.743Z",
+      "montant": 52791,
+      "payee": false,
+      "id": "JbNCMuzAV_c"
+    },
+    {
+      "creditId": "-xHLIGdb0AU",
+      "numero": 5,
+      "dateEcheance": "2027-01-05T16:17:12.062Z",
+      "montant": 88849,
+      "payee": false,
+      "id": "gUOdEsDxurc"
+    },
+    {
+      "creditId": "-xHLIGdb0AU",
+      "numero": 6,
+      "dateEcheance": "2027-02-05T16:17:12.062Z",
+      "montant": 88849,
+      "payee": false,
+      "id": "o2YWx6n4yfI"
+    },
+    {
+      "creditId": "-xHLIGdb0AU",
+      "numero": 7,
+      "dateEcheance": "2027-03-05T16:17:12.062Z",
+      "montant": 88849,
+      "payee": false,
+      "id": "7dua9Fk52Ls"
+    },
+    {
+      "creditId": "-xHLIGdb0AU",
+      "numero": 8,
+      "dateEcheance": "2027-04-05T16:17:12.062Z",
+      "montant": 88849,
+      "payee": false,
+      "id": "ZDsE04xxCZQ"
+    },
+    {
+      "creditId": "-xHLIGdb0AU",
+      "numero": 9,
+      "dateEcheance": "2027-05-05T16:17:12.062Z",
+      "montant": 88849,
+      "payee": false,
+      "id": "VxcOH2s1UcU"
+    },
+    {
+      "creditId": "-xHLIGdb0AU",
+      "numero": 10,
+      "dateEcheance": "2027-06-05T16:17:12.062Z",
+      "montant": 88849,
+      "payee": false,
+      "id": "3hC9pse9VdM"
+    },
+    {
+      "creditId": "-xHLIGdb0AU",
+      "numero": 11,
+      "dateEcheance": "2027-07-05T16:17:12.062Z",
+      "montant": 88849,
+      "payee": false,
+      "id": "589ZJyhxP68"
+    }
+  ],
+  "alertes": [
+    {
+      "userId": "u3",
+      "titre": "Compte bloqué",
+      "message": "Votre compte MBC-0001-CT a été bloqué par un agent.",
+      "type": "avertissement",
+      "date": "2026-08-05T15:06:54.237Z",
+      "lue": true,
+      "lien": "/comptes/a1",
+      "id": "3L2HOY9fRRo"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte bloqué",
+      "message": "Le compte MBC-0001-CT a été bloqué.",
+      "type": "info",
+      "date": "2026-08-05T15:06:54.239Z",
+      "lue": true,
+      "lien": "/comptes/a1",
+      "id": "gC3Fnk2wMtU"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Crédit approuvé",
+      "message": "Votre demande de crédit de 500 000 FCFA a été approuvée.",
+      "type": "succes",
+      "date": "2026-08-05T15:22:34.379Z",
+      "lue": true,
+      "lien": "/credits/w5sEr1q7dKs",
+      "id": "RftUnPf_KcY"
+    },
+    {
+      "userId": "u1",
+      "titre": "Nouvelle demande de crédit",
+      "message": "modou sarr a demandé un crédit de 5 000 000 FCFA.",
+      "type": "info",
+      "date": "2026-08-05T15:29:50.478Z",
+      "lue": true,
+      "lien": "/credits/bDemFUZwiio",
+      "id": "MW1oGwknRpc"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Crédit rejeté",
+      "message": "Votre demande de crédit de 5 000 000 FCFA a été rejetée.",
+      "type": "danger",
+      "date": "2026-08-05T15:36:25.871Z",
+      "lue": true,
+      "lien": "/credits/bDemFUZwiio",
+      "id": "gB4VKA0iqiA"
+    },
+    {
+      "userId": "u2",
+      "titre": "Nouvelle demande de crédit",
+      "message": "modou sarr a demandé un crédit de 500 000 FCFA.",
+      "type": "info",
+      "date": "2026-08-05T15:37:18.693Z",
+      "lue": true,
+      "lien": "/credits/7Eq1A6oCA1c",
+      "id": "aEOBUnArLJw"
+    },
+    {
+      "userId": "u1",
+      "titre": "Nouvelle demande de crédit",
+      "message": "modou sarr a demandé un crédit de 500 000 FCFA.",
+      "type": "info",
+      "date": "2026-08-05T15:37:18.711Z",
+      "lue": true,
+      "lien": "/credits/7Eq1A6oCA1c",
+      "id": "G1CBeWbwKYk"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Crédit rejeté",
+      "message": "Votre demande de crédit de 500 000 FCFA a été rejetée.",
+      "type": "danger",
+      "date": "2026-08-05T15:37:53.531Z",
+      "lue": true,
+      "lien": "/credits/7Eq1A6oCA1c",
+      "id": "kGbsWbSsfCY"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte débloqué",
+      "message": "Le compte MBC-3513-CT a été débloqué.",
+      "type": "info",
+      "date": "2026-08-05T15:38:05.554Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "4IQcHmdB8qk"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Retrait effectué",
+      "message": "Un retrait de 100 000 FCFA a été effectué sur votre compte MBC-3513-CT.",
+      "type": "succes",
+      "date": "2026-08-05T15:42:19.042Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "UFChO-6PZ24"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Compte bloqué",
+      "message": "Votre compte MBC-3513-CT a été bloqué par un agent.",
+      "type": "avertissement",
+      "date": "2026-08-05T15:43:54.698Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "xSBWlE7XS_g"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte bloqué",
+      "message": "Le compte MBC-3513-CT a été bloqué.",
+      "type": "info",
+      "date": "2026-08-05T15:43:54.722Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "w-sECh2yuN4"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Dépôt effectué",
+      "message": "Un dépôt de 150 000 FCFA a été effectué sur votre compte MBC-3513-CT.",
+      "type": "succes",
+      "date": "2026-08-05T15:49:37.837Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "NMOzszr2MxY"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte débloqué",
+      "message": "Le compte MBC-3513-CT a été débloqué.",
+      "type": "info",
+      "date": "2026-08-05T16:01:40.855Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "mluwSvbRR7M"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Compte débloqué",
+      "message": "Votre compte MBC-3513-CT a été débloqué par un agent.",
+      "type": "succes",
+      "date": "2026-08-05T16:01:40.853Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "dXUf2Z7WVLc"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Compte débloqué",
+      "message": "Votre compte MBC-3513-CT a été débloqué par un agent.",
+      "type": "succes",
+      "date": "2026-08-05T16:06:46.563Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "V5jqvw9A5-4"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte débloqué",
+      "message": "Le compte MBC-3513-CT a été débloqué.",
+      "type": "info",
+      "date": "2026-08-05T16:06:46.572Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "CTL4uCOxg-U"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Compte bloqué",
+      "message": "Votre compte MBC-3513-CT a été bloqué par un agent.",
+      "type": "avertissement",
+      "date": "2026-08-05T16:11:47.431Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "o9taCG6DjUU"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte bloqué",
+      "message": "Le compte MBC-3513-CT a été bloqué.",
+      "type": "info",
+      "date": "2026-08-05T16:11:47.451Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "9i14CghdjqQ"
+    },
+    {
+      "userId": "u3",
+      "titre": "Compte bloqué",
+      "message": "Votre compte MBC-0001-CT a été bloqué par un agent.",
+      "type": "avertissement",
+      "date": "2026-08-05T16:12:44.253Z",
+      "lue": true,
+      "lien": "/comptes/a1",
+      "id": "Wl4qy0IzrMg"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte bloqué",
+      "message": "Le compte MBC-0001-CT a été bloqué.",
+      "type": "info",
+      "date": "2026-08-05T16:12:44.264Z",
+      "lue": true,
+      "lien": "/comptes/a1",
+      "id": "dlkYlPuMymQ"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Compte débloqué",
+      "message": "Votre compte MBC-3513-CT a été débloqué par un agent.",
+      "type": "succes",
+      "date": "2026-08-05T16:14:54.300Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "Y91l3-FrDgE"
+    },
+    {
+      "userId": "u1",
+      "titre": "Compte débloqué",
+      "message": "Le compte MBC-3513-CT a été débloqué.",
+      "type": "info",
+      "date": "2026-08-05T16:14:54.317Z",
+      "lue": true,
+      "lien": "/comptes/UuVvvHbHrOI",
+      "id": "avEWkSnCYi8"
+    },
+    {
+      "userId": "u2",
+      "titre": "Nouvelle demande de crédit",
+      "message": "Fatou Fall a demandé un crédit de 1 000 000 FCFA.",
+      "type": "info",
+      "date": "2026-08-05T16:17:12.145Z",
+      "lue": false,
+      "lien": "/credits/-xHLIGdb0AU",
+      "id": "AoJa1HUnkTQ"
+    },
+    {
+      "userId": "u1",
+      "titre": "Nouvelle demande de crédit",
+      "message": "Fatou Fall a demandé un crédit de 1 000 000 FCFA.",
+      "type": "info",
+      "date": "2026-08-05T16:17:12.295Z",
+      "lue": true,
+      "lien": "/credits/-xHLIGdb0AU",
+      "id": "-ZFCTfy116s"
+    },
+    {
+      "userId": "u3",
+      "titre": "Crédit approuvé",
+      "message": "Votre demande de crédit de 1 000 000 FCFA a été approuvée.",
+      "type": "succes",
+      "date": "2026-08-05T16:17:47.421Z",
+      "lue": true,
+      "lien": "/credits/-xHLIGdb0AU",
+      "id": "FwzSXtWo1vE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

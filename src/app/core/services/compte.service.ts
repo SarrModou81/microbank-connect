@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Compte, TypeCompte } from '../models/compte.model';
+import { Compte, StatutCompte, TypeCompte } from '../models/compte.model';
 
 @Injectable({ providedIn: 'root' })
 export class CompteService {
@@ -41,6 +41,12 @@ export class CompteService {
   updateSolde(id: string, nouveauSolde: number): Observable<Compte> {
     return this.http
       .patch<Compte>(`${this.baseUrl}/${id}`, { solde: nouveauSolde })
+      .pipe(tap((updated) => this.comptes.update((list) => list.map((c) => (c.id === id ? updated : c)))));
+  }
+
+  updateStatut(id: string, statut: StatutCompte): Observable<Compte> {
+    return this.http
+      .patch<Compte>(`${this.baseUrl}/${id}`, { statut })
       .pipe(tap((updated) => this.comptes.update((list) => list.map((c) => (c.id === id ? updated : c)))));
   }
 

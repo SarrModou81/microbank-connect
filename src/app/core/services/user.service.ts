@@ -23,4 +23,12 @@ export class UserService {
     };
     return this.http.post<User>(this.baseUrl, user);
   }
+
+  getByRole(role: UserRole): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl, { params: { role } });
+  }
+
+  getByClientId(clientId: string): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl, { params: { clientId } });
+  }
 }

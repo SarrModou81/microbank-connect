@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { AlertService } from '../../../core/services/alert.service';
 import { UserRole } from '../../../core/models/user.model';
+import { Alerte } from '../../../core/models/alert.model';
 import { RoleLabelPipe } from '../../pipes/role-label-pipe';
+import { interval, startWith } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface NavItem {
   label: string;
@@ -30,19 +34,30 @@ const NAV_ITEMS: NavItem[] = [
 })
 export class ShellComponent {
   private readonly authService = inject(AuthService);
+  private readonly alertService = inject(AlertService);
 
   sidebarOpen = signal(false);
   profileMenuOpen = signal(false);
+  notifMenuOpen = signal(false);
   showLogoutConfirm = signal(false);
 
   currentUser = this.authService.currentUser;
   role = this.authService.role;
+
+  notifBadgeCount = this.alertService.nonLues;
+  recentAlertes = computed(() => this.alertService.alertes().slice(0, 6));
 
   visibleNavItems = computed(() => {
     const role = this.role();
     if (!role) return [];
     return NAV_ITEMS.filter((item) => item.roles.includes(role));
   });
+
+ constructor() {
+  interval(10000)
+    .pipe(startWith(0), takeUntilDestroyed())
+    .subscribe(() => this.alertService.loadMine());
+}
 
   toggleSidebar(): void {
     this.sidebarOpen.update((open) => !open);
@@ -54,10 +69,31 @@ export class ShellComponent {
 
   toggleProfileMenu(): void {
     this.profileMenuOpen.update((open) => !open);
+    this.notifMenuOpen.set(false);
   }
 
   closeProfileMenu(): void {
     this.profileMenuOpen.set(false);
+  }
+
+  toggleNotifMenu(): void {
+    this.notifMenuOpen.update((open) => !open);
+    this.profileMenuOpen.set(false);
+  }
+
+  closeNotifMenu(): void {
+    this.notifMenuOpen.set(false);
+  }
+
+  openAlerte(alerte: Alerte): void {
+    if (!alerte.lue) {
+      this.alertService.marquerLue(alerte.id);
+    }
+    this.closeNotifMenu();
+  }
+
+  marquerToutesLues(): void {
+    this.alertService.marquerToutesLues();
   }
 
   requestLogout(): void {

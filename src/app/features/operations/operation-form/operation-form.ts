@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { CompteService } from '../../../core/services/compte.service';
 import { OperationService } from '../../../core/services/operation.service';
 import { TypeTransaction, Transaction } from '../../../core/models/transaction.model';
+import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-operation-form',
@@ -20,6 +21,7 @@ export class OperationFormComponent {
   private readonly operationService = inject(OperationService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly alertService = inject(AlertService);
 
   comptes = this.compteService.comptes;
   confirming = signal(false);
@@ -75,34 +77,64 @@ export class OperationFormComponent {
   }
 
   confirm(): void {
-    const value = this.form.getRawValue();
-    const compte = this.comptes().find((c) => c.id === value.compteId);
-    if (!compte) return;
+  const value = this.form.getRawValue();
+  const compte = this.comptes().find((c) => c.id === value.compteId);
+  if (!compte) return;
 
-    this.submitting.set(true);
-    this.errorMessage.set(null);
+  this.submitting.set(true);
+  this.errorMessage.set(null);
 
-    let request$: Observable<Transaction>;
-    if (value.type === 'depot') {
-      request$ = this.operationService.deposer(compte, value.montant, value.description);
-    } else if (value.type === 'retrait') {
-      request$ = this.operationService.retirer(compte, value.montant, value.description);
-    } else {
-      const destination = this.comptes().find((c) => c.id === value.compteDestinataireId);
-      if (!destination) {
-        this.submitting.set(false);
-        this.errorMessage.set('Compte destinataire introuvable.');
-        return;
-      }
-      request$ = this.operationService.virer(compte, destination, value.montant, value.description);
+  let request$: Observable<Transaction>;
+  let destination = undefined as ReturnType<typeof this.comptes> extends (infer T)[] ? T | undefined : never;
+
+  if (value.type === 'depot') {
+    request$ = this.operationService.deposer(compte, value.montant, value.description);
+  } else if (value.type === 'retrait') {
+    request$ = this.operationService.retirer(compte, value.montant, value.description);
+  } else {
+    destination = this.comptes().find((c) => c.id === value.compteDestinataireId);
+    if (!destination) {
+      this.submitting.set(false);
+      this.errorMessage.set('Compte destinataire introuvable.');
+      return;
     }
-
-    request$.subscribe({
-      next: () => this.router.navigateByUrl('/operations'),
-      error: (err: Error) => {
-        this.submitting.set(false);
-        this.errorMessage.set(err.message ?? "Une erreur est survenue lors de l'opération.");
-      },
-    });
+    request$ = this.operationService.virer(compte, destination, value.montant, value.description);
   }
+
+  request$.subscribe({
+    next: () => {
+      if (value.type === 'depot' || value.type === 'retrait') {
+        this.alertService.notifierClient(
+          compte.clientId,
+          value.type === 'depot' ? 'Dépôt effectué' : 'Retrait effectué',
+          `Un ${value.type === 'depot' ? 'dépôt' : 'retrait'} de ${value.montant.toLocaleString()} FCFA a été effectué sur votre compte ${compte.numero}.`,
+          'succes',
+          `/comptes/${compte.id}`
+        );
+      } else if (destination) {
+        this.alertService.notifierClient(
+          compte.clientId,
+          'Virement effectué',
+          `Un virement de ${value.montant.toLocaleString()} FCFA a été effectué depuis votre compte ${compte.numero}.`,
+          'succes',
+          `/comptes/${compte.id}`
+        );
+        if (destination.clientId !== compte.clientId) {
+          this.alertService.notifierClient(
+            destination.clientId,
+            'Virement reçu',
+            `Vous avez reçu un virement de ${value.montant.toLocaleString()} FCFA sur votre compte ${destination.numero}.`,
+            'succes',
+            `/comptes/${destination.id}`
+          );
+        }
+      }
+      this.router.navigateByUrl('/operations');
+    },
+    error: (err: Error) => {
+      this.submitting.set(false);
+      this.errorMessage.set(err.message ?? "Une erreur est survenue lors de l'opération.");
+    },
+  });
+}
 }

@@ -21,6 +21,38 @@
       </button>
 
       <div class="mbc-topbar-user">
+        <div class="mbc-notif-trigger-wrap">
+          <button type="button" class="mbc-bell-trigger" (click)="toggleNotifMenu()" aria-label="Notifications">
+            <i class="fa-solid fa-bell"></i>
+            @if (notifBadgeCount() > 0) {
+              <span class="mbc-bell-badge">{{ notifBadgeCount() > 9 ? '9+' : notifBadgeCount() }}</span>
+            }
+          </button>
+
+          @if (notifMenuOpen()) {
+            <div class="mbc-profile-overlay" (click)="closeNotifMenu()"></div>
+            <div class="mbc-notif-dropdown">
+              <div class="mbc-notif-dropdown-header">
+                <span>Notifications</span>
+                @if (notifBadgeCount() > 0) {
+                  <button type="button" class="mbc-notif-mark-all" (click)="marquerToutesLues()">Tout marquer lu</button>
+                }
+              </div>
+              @if (recentAlertes().length === 0) {
+                <div class="mbc-empty" style="padding: 1.5rem;"><i class="fa-solid fa-bell-slash"></i><p>Aucune notification.</p></div>
+              } @else {
+                @for (alerte of recentAlertes(); track alerte.id) {
+                  <a [routerLink]="alerte.lien ?? '/notifications'" class="mbc-notif-dropdown-item" [class.unread]="!alerte.lue" (click)="openAlerte(alerte)">
+                    <p class="mbc-notif-title">{{ alerte.titre }}</p>
+                    <p class="mbc-notif-message">{{ alerte.message }}</p>
+                  </a>
+                }
+              }
+              <a routerLink="/notifications" class="mbc-notif-dropdown-footer" (click)="closeNotifMenu()">Voir toutes les notifications</a>
+            </div>
+          }
+        </div>
+
         <button type="button" class="mbc-profile-trigger" (click)="toggleProfileMenu()">
           <span class="mbc-topbar-name">{{ currentUser()?.prenom }} {{ currentUser()?.nom }}</span>
           <span class="mbc-badge mbc-badge-info">{{ role() | roleLabel }}</span>

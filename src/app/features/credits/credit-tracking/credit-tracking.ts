@@ -7,6 +7,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { Credit } from '../../../core/models/credit.model';
 import { Client } from '../../../core/models/client.model';
+import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-credit-tracking',
@@ -21,6 +22,7 @@ export class CreditTrackingComponent {
   private readonly clientService = inject(ClientService);
   private readonly authService = inject(AuthService);
   private readonly notifications = inject(NotificationService);
+  private readonly alertService = inject(AlertService);
 
   private readonly creditId = this.route.snapshot.paramMap.get('id')!;
 
@@ -54,16 +56,23 @@ export class CreditTrackingComponent {
   }
 
   private changerStatut(statut: 'approuve' | 'rejete'): void {
-    this.processing.set(true);
-    this.creditService.changerStatut(this.creditId, statut).subscribe({
-      next: (credit) => {
-        this.credit.set(credit);
-        this.processing.set(false);
-        this.notifications.success(statut === 'approuve' ? 'Crédit approuvé, échéancier généré.' : 'Crédit rejeté.');
-      },
-      error: () => this.processing.set(false),
-    });
-  }
+  this.processing.set(true);
+  this.creditService.changerStatut(this.creditId, statut).subscribe({
+    next: (credit) => {
+      this.credit.set(credit);
+      this.processing.set(false);
+      this.notifications.success(statut === 'approuve' ? 'Crédit approuvé, échéancier généré.' : 'Crédit rejeté.');
+      this.alertService.notifierClient(
+        credit.clientId,
+        statut === 'approuve' ? 'Crédit approuvé' : 'Crédit rejeté',
+        `Votre demande de crédit de ${credit.montant.toLocaleString()} FCFA a été ${statut === 'approuve' ? 'approuvée' : 'rejetée'}.`,
+        statut === 'approuve' ? 'succes' : 'danger',
+        `/credits/${credit.id}`
+      );
+    },
+    error: () => this.processing.set(false),
+  });
+}
 
   payerEcheance(echeanceId: string): void {
     this.creditService.payerEcheance(echeanceId).subscribe();

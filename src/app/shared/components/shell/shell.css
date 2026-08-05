@@ -88,3 +88,34 @@
   display: flex; align-items: center; justify-content: center; z-index: 60; padding: 1rem;
 }
 .mbc-confirm-card { max-width: 380px; width: 100%; }
+.mbc-notif-trigger-wrap { position: relative; }
+.mbc-bell-trigger { position: relative; background: none; border: none; font-size: 1.1rem; color: var(--mbc-text); padding: 0.5rem; border-radius: var(--mbc-radius-sm); cursor: pointer; }
+.mbc-bell-trigger:hover { background: #f4f6fb; }
+.mbc-bell-badge {
+  position: absolute; top: 0; right: 0;
+  background: var(--mbc-danger); color: #fff;
+  font-size: 0.65rem; font-weight: 700;
+  min-width: 16px; height: 16px; padding: 0 3px;
+  border-radius: 999px; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+.mbc-notif-dropdown {
+  position: absolute; top: calc(100% + 0.4rem); left: 0;
+  width: 320px; max-width: calc(100vw - 2rem); max-height: 400px; overflow-y: auto;
+  background: var(--mbc-surface); border: 1px solid var(--mbc-border);
+  border-radius: var(--mbc-radius-sm); box-shadow: var(--mbc-shadow-lg);
+  z-index: 46;
+}
+.mbc-notif-dropdown-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1rem; border-bottom: 1px solid var(--mbc-border);
+  font-weight: 700; font-size: 0.85rem;
+}
+.mbc-notif-mark-all { background: none; border: none; color: var(--mbc-primary); font-size: 0.78rem; font-weight: 600; cursor: pointer; }
+.mbc-notif-dropdown-item { display: block; padding: 0.7rem 1rem; border-bottom: 1px solid var(--mbc-border); text-decoration: none; color: var(--mbc-text); }
+.mbc-notif-dropdown-item:hover { background: #fafbff; }
+.mbc-notif-dropdown-item.unread { background: var(--mbc-primary-light); }
+.mbc-notif-dropdown-item .mbc-notif-title { font-size: 0.85rem; font-weight: 700; margin: 0 0 0.15rem; }
+.mbc-notif-dropdown-item .mbc-notif-message { font-size: 0.8rem; color: var(--mbc-text-muted); margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mbc-notif-dropdown-footer { display: block; text-align: center; padding: 0.6rem; font-size: 0.8rem; font-weight: 600; color: var(--mbc-primary); text-decoration: none; }
+.mbc-notif-dropdown-footer:hover { background: #fafbff; }

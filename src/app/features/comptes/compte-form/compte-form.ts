@@ -6,6 +6,7 @@ import { CompteService } from '../../../core/services/compte.service';
 import { ClientService } from '../../../core/services/client.service';
 import { plafondValidator } from '../../../shared/validators/plafond.validator';
 import { TypeCompte } from '../../../core/models/compte.model';
+import { AlertService } from '../../../core/services/alert.service'
 
 const PLAFONDS: Record<TypeCompte, { min: number; max: number; defaut: number }> = {
   courant: { min: 10000, max: 500000, defaut: 200000 },
@@ -25,6 +26,7 @@ export class CompteFormComponent {
   private readonly clientService = inject(ClientService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly alertService = inject(AlertService);
 
   clients = this.clientService.clients;
   submitting = signal(false);
@@ -70,7 +72,16 @@ export class CompteFormComponent {
         dateOuverture: new Date().toISOString(),
       })
       .subscribe({
-        next: (compte) => this.router.navigate(['/comptes', compte.id]),
+        next: (compte) => {
+          this.alertService.notifierClient(
+            compte.clientId,
+            'Nouveau compte ouvert',
+            `Un compte ${compte.type === 'courant' ? 'courant' : 'épargne'} (n° ${compte.numero}) a été ouvert pour vous.`,
+            'succes',
+            `/comptes/${compte.id}`
+          );
+          this.router.navigate(['/comptes', compte.id]);
+        },
         error: () => {
           this.errorMessage.set("Une erreur est survenue lors de l'ouverture du compte.");
           this.submitting.set(false);

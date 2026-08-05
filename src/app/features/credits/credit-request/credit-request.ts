@@ -6,6 +6,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { CreditService } from '../../../core/services/credit.service';
 import { ClientService } from '../../../core/services/client.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-credit-request',
@@ -21,6 +22,8 @@ export class CreditRequestComponent {
   private readonly authService = inject(AuthService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly alertService = inject(AlertService);
+
 
   isClient = computed(() => this.authService.role() === 'client');
   clients = this.clientService.clients;
@@ -50,21 +53,43 @@ export class CreditRequestComponent {
     }
   }
 
-  submit(): void {
-    if (this.form.invalid || this.submitting()) {
-      this.form.markAllAsTouched();
-      return;
-    }
-    this.submitting.set(true);
-    this.errorMessage.set(null);
 
-    const { clientId, montant, tauxAnnuel, dureeMois } = this.form.getRawValue();
-    this.creditService.demander(clientId, montant, tauxAnnuel, dureeMois).subscribe({
-      next: (credit) => this.router.navigate(['/credits', credit.id]),
-      error: () => {
-        this.submitting.set(false);
-        this.errorMessage.set('Une erreur est survenue lors de la demande.');
-      },
-    });
+submit(): void {
+  if (this.form.invalid || this.submitting()) {
+    this.form.markAllAsTouched();
+    return;
   }
+  this.submitting.set(true);
+  this.errorMessage.set(null);
+
+  const { clientId, montant, tauxAnnuel, dureeMois } = this.form.getRawValue();
+  this.creditService.demander(clientId, montant, tauxAnnuel, dureeMois).subscribe({
+    next: (credit) => {
+      if (this.isClient()) {
+        this.clientService.getById(clientId).subscribe((client) => {
+          this.alertService
+            .notifierUtilisateur(
+              client.agentId,
+              'Nouvelle demande de crédit',
+              `${client.prenom} ${client.nom} a demandé un crédit de ${montant.toLocaleString()} FCFA.`,
+              'info',
+              `/credits/${credit.id}`
+            )
+            .subscribe();
+          this.alertService.notifierGestionnaires(
+            'Nouvelle demande de crédit',
+            `${client.prenom} ${client.nom} a demandé un crédit de ${montant.toLocaleString()} FCFA.`,
+            'info',
+            `/credits/${credit.id}`
+          );
+        });
+      }
+      this.router.navigate(['/credits', credit.id]);
+    },
+    error: () => {
+      this.submitting.set(false);
+      this.errorMessage.set('Une erreur est survenue lors de la demande.');
+    },
+  });
+}
 }

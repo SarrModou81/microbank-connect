@@ -44,7 +44,26 @@
       </div>
     </div>
 
-        <div class="mbc-card mt-3">
+    @if (canManage()) {
+      <div class="mbc-card mt-3">
+        <div class="mbc-card-body d-flex gap-2 align-items-center flex-wrap">
+          @if (cpt.statut === 'suspendu') {
+            <button type="button" class="btn btn-accent" (click)="toggleBlocage()" [disabled]="blocking()">
+              @if (blocking()) { <span class="spinner-border spinner-border-sm me-2"></span> }
+              <i class="fa-solid fa-lock-open"></i> Débloquer le compte
+            </button>
+            <span class="mbc-badge mbc-badge-warning"><span class="mbc-badge-dot"></span>Compte actuellement bloqué</span>
+          } @else {
+            <button type="button" class="btn btn-outline-primary" (click)="toggleBlocage()" [disabled]="blocking()">
+              @if (blocking()) { <span class="spinner-border spinner-border-sm me-2"></span> }
+              <i class="fa-solid fa-lock"></i> Bloquer le compte
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="mbc-card mt-3">
       <div class="mbc-card-header">
         <h3>Dernières opérations</h3>
         <a [routerLink]="['/operations/nouvelle']" [queryParams]="{ compteId: cpt.id }" class="btn btn-primary btn-sm">

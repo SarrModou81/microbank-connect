@@ -1,10 +1,13 @@
 .mbc-notif-list { display: flex; flex-direction: column; }
-.mbc-notif-item { display: flex; gap: 1rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--mbc-border); }
+.mbc-notif-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.5rem; border-bottom: 1px solid var(--mbc-border); }
 .mbc-notif-item:last-child { border-bottom: none; }
+.mbc-notif-unread { background: var(--mbc-primary-light); }
 .mbc-notif-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
 .mbc-notif-danger { background: var(--mbc-danger-light); color: var(--mbc-danger); }
 .mbc-notif-warning { background: var(--mbc-warning-light); color: var(--mbc-warning); }
 .mbc-notif-success { background: var(--mbc-success-light); color: var(--mbc-success); }
+.mbc-notif-info { background: #fff; color: var(--mbc-info); }
+.mbc-notif-body { flex: 1; min-width: 0; }
 .mbc-notif-title { font-weight: 700; margin: 0 0 0.15rem; }
 .mbc-notif-message { margin: 0 0 0.25rem; color: var(--mbc-text); font-size: 0.88rem; }
 .mbc-notif-date { margin: 0; color: var(--mbc-text-muted); font-size: 0.78rem; }
