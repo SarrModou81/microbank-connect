@@ -1,0 +1,2 @@
+.mbc-card-header { flex-wrap: wrap; }
+.mbc-card-header input[type="search"] { flex: 1 1 200px; max-width: 100% !important; }
