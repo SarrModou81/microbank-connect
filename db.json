@@ -89,7 +89,7 @@
       "type": "courant",
       "solde": 100000,
       "plafondRetrait": 200000,
-      "statut": "actif",
+      "statut": "suspendu",
       "dateOuverture": "2026-08-04T12:54:45.831Z",
       "id": "DnD8Zg5sxf8"
     },
@@ -230,6 +230,16 @@
       "statut": "approuve",
       "dateCreation": "2026-08-05T16:17:12.062Z",
       "id": "-xHLIGdb0AU"
+    },
+    {
+      "clientId": "hVsCDm-Tf_Q",
+      "montant": 1500000,
+      "tauxAnnuel": 12,
+      "dureeMois": 14,
+      "mensualite": 115352,
+      "statut": "approuve",
+      "dateCreation": "2026-08-05T22:13:59.897Z",
+      "id": "3DKMLpc30fE"
     }
   ],
   "echeances": [
@@ -368,6 +378,118 @@
       "montant": 88849,
       "payee": false,
       "id": "589ZJyhxP68"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 1,
+      "dateEcheance": "2026-09-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": true,
+      "id": "ohcwoi2yYOU"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 2,
+      "dateEcheance": "2026-10-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "XLteAa46Fv4"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 3,
+      "dateEcheance": "2026-11-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "93t6qMSiz7Q"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 4,
+      "dateEcheance": "2026-12-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "u4qYMzCC93M"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 5,
+      "dateEcheance": "2027-01-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "c0N0uqQwBGU"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 6,
+      "dateEcheance": "2027-02-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "Vxx2-xLu2w4"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 7,
+      "dateEcheance": "2027-03-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "M9lJYyfXQhU"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 8,
+      "dateEcheance": "2027-04-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "y-QC4OXKWYI"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 9,
+      "dateEcheance": "2027-05-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "5aC2p_klka0"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 10,
+      "dateEcheance": "2027-06-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "HFNlStSFxoU"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 11,
+      "dateEcheance": "2027-07-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "Xc9ATsc0g58"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 12,
+      "dateEcheance": "2027-08-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "e0k-8_8Vm2w"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 13,
+      "dateEcheance": "2027-09-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "vWfk5FbOG4E"
+    },
+    {
+      "creditId": "3DKMLpc30fE",
+      "numero": 14,
+      "dateEcheance": "2027-10-05T22:13:59.897Z",
+      "montant": 115352,
+      "payee": false,
+      "id": "wLIQNwXRFac"
     }
   ],
   "alertes": [
@@ -647,29 +769,39 @@
       "message": "Le compte MBC-3513-CT a été bloqué.",
       "type": "info",
       "date": "2026-08-05T16:31:18.068Z",
-      "lue": false,
+      "lue": true,
       "lien": "/comptes/UuVvvHbHrOI",
       "id": "r9bfQLnHnEY"
     },
     {
-      "userId": "sEpk3s4WXzk",
-      "titre": "Compte débloqué",
-      "message": "Votre compte MBC-3513-CT a été débloqué par un agent.",
-      "type": "succes",
-      "date": "2026-08-05T16:34:25.184Z",
-      "lue": false,
-      "lien": "/comptes/UuVvvHbHrOI",
-      "id": "hFb3RzRcQb0"
+      "userId": "u2",
+      "titre": "Nouvelle demande de crédit",
+      "message": "modou sarr a demandé un crédit de 1 500 000 FCFA.",
+      "type": "info",
+      "date": "2026-08-05T22:13:59.948Z",
+      "lue": true,
+      "lien": "/credits/3DKMLpc30fE",
+      "id": "vpFSrAvzHDU"
     },
     {
       "userId": "u1",
-      "titre": "Compte débloqué",
-      "message": "Le compte MBC-3513-CT a été débloqué.",
+      "titre": "Nouvelle demande de crédit",
+      "message": "modou sarr a demandé un crédit de 1 500 000 FCFA.",
       "type": "info",
-      "date": "2026-08-05T16:34:25.190Z",
-      "lue": false,
-      "lien": "/comptes/UuVvvHbHrOI",
-      "id": "Kv_whm7jC9s"
+      "date": "2026-08-05T22:13:59.970Z",
+      "lue": true,
+      "lien": "/credits/3DKMLpc30fE",
+      "id": "U1qJSd_9mu0"
+    },
+    {
+      "userId": "sEpk3s4WXzk",
+      "titre": "Crédit approuvé",
+      "message": "Votre demande de crédit de 1 500 000 FCFA a été approuvée.",
+      "type": "succes",
+      "date": "2026-08-05T22:14:32.119Z",
+      "lue": true,
+      "lien": "/credits/3DKMLpc30fE",
+      "id": "ooxHHDngAf0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

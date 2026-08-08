@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { Observable, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import { Observable, concatMap, from, map, of, switchMap, tap, toArray } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Credit, Echeance, StatutCredit } from '../models/credit.model';
 
@@ -81,7 +81,10 @@ export class CreditService {
         payee: false,
       };
     });
-    return forkJoin(echeances.map((e) => this.http.post<Echeance>(this.echeancesUrl, e))).pipe(
+
+    return from(echeances).pipe(
+      concatMap((e) => this.http.post<Echeance>(this.echeancesUrl, e)),
+      toArray(),
       tap((created) => this.echeances.update((list) => [...list, ...created]))
     );
   }

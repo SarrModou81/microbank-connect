@@ -49,8 +49,7 @@ export const routes: Routes = [
       {
         path: 'rapports',
         canActivate: [roleGuard(['gestionnaire'])],
-        loadComponent: () =>
-          import('./shared/components/feature-placeholder/feature-placeholder').then((m) => m.FeaturePlaceholderComponent),
+        loadComponent: () => import('./features/rapports/rapports').then((m) => m.RapportsComponent),
         data: { title: 'Rapports' },
       },
       

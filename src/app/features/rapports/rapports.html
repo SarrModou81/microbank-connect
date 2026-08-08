@@ -1,0 +1,92 @@
+<div class="mbc-page">
+  <div class="mbc-page-header">
+    <div>
+      <h1>Rapports</h1>
+      <p>Vue d'ensemble de l'activité de l'agence — volumes, encours et répartitions.</p>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-3">
+      <div class="mbc-stat-card">
+        <div class="mbc-stat-icon" style="background: var(--mbc-primary-light); color: var(--mbc-primary);"><i class="fa-solid fa-users"></i></div>
+        <div class="mbc-stat-value">{{ nombreClients() }}</div>
+        <div class="mbc-stat-label">Clients</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="mbc-stat-card">
+        <div class="mbc-stat-icon" style="background: var(--mbc-accent); color: #fff;"><i class="fa-solid fa-wallet"></i></div>
+        <div class="mbc-stat-value">{{ nombreComptes() }}</div>
+        <div class="mbc-stat-label">Comptes ({{ nombreComptesBloques() }} bloqué(s))</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="mbc-stat-card">
+        <div class="mbc-stat-icon" style="background: var(--mbc-success-light); color: var(--mbc-success);"><i class="fa-solid fa-sack-dollar"></i></div>
+        <div class="mbc-stat-value">{{ encoursTotal() | number: '1.0-0' }} FCFA</div>
+        <div class="mbc-stat-label">Encours total des comptes</div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="mbc-stat-card">
+        <div class="mbc-stat-icon" style="background: var(--mbc-gold-light); color: var(--mbc-gold);"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+        <div class="mbc-stat-value">{{ encoursCreditsApprouves() | number: '1.0-0' }} FCFA</div>
+        <div class="mbc-stat-label">Encours de crédits approuvés</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-1">
+    <div class="col-lg-6">
+      <div class="mbc-card h-100">
+        <div class="mbc-card-header"><h3>Répartition des comptes par type</h3></div>
+        <div class="mbc-card-body"><app-donut-chart [data]="repartitionComptes()" /></div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="mbc-card h-100">
+        <div class="mbc-card-header"><h3>Statuts des comptes</h3></div>
+        <div class="mbc-card-body"><app-donut-chart [data]="repartitionStatutsComptes()" /></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-1">
+    <div class="col-lg-6">
+      <div class="mbc-card h-100">
+        <div class="mbc-card-header"><h3>Volume des opérations par type</h3></div>
+        <div class="mbc-card-body"><app-bar-chart [data]="volumeParTypeTransaction()" /></div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="mbc-card h-100">
+        <div class="mbc-card-header"><h3>Crédits par statut</h3></div>
+        <div class="mbc-card-body"><app-bar-chart [data]="creditsParStatut()" /></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mbc-card mt-3">
+    <div class="mbc-card-header"><h3>Top 5 clients par encours</h3></div>
+    @if (topClients().length === 0) {
+      <div class="mbc-empty"><i class="fa-solid fa-ranking-star"></i><p>Aucune donnée disponible.</p></div>
+    } @else {
+      <div class="mbc-table-responsive">
+        <table class="mbc-table">
+          <thead><tr><th>#</th><th>Client</th><th>Comptes</th><th>Encours total</th></tr></thead>
+          <tbody>
+            @for (entry of topClients(); track entry.client.id; let i = $index) {
+              <tr>
+                <td><span class="mbc-rank-badge">{{ i + 1 }}</span></td>
+                <td>{{ entry.client.prenom }} {{ entry.client.nom }}</td>
+                <td>{{ entry.nombreComptes }}</td>
+                <td>{{ entry.soldeTotal | number: '1.0-0' }} FCFA</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>
